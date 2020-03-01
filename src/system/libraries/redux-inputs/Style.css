@@ -1,0 +1,12 @@
+.image-upload {
+  position: relative;
+  overflow: hidden;
+  margin-top: 10px;
+}
+.image-upload-btn {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0;
+  right: 0;
+  top: 0;
+}
