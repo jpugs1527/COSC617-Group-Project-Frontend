@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
-import { WelcomeActions } from '../../actions'
+import { RegisterActions } from '../../actions'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 
-class WelcomePage extends Component {
-
+class RegisterPage extends Component {
+    
     test = () => {
-        this.props.dispatch(WelcomeActions.test({name: 'MERN.JS'}))
+        this.props.dispatch(RegisterActions.test({name: 'MERN.JS'}))
     }
 
     render() { 
@@ -16,13 +16,13 @@ class WelcomePage extends Component {
             <div>
                 <Header />
                 <Helmet>
-                    <title>Welcome</title>
+                    <title>Registration</title>
                 </Helmet>
                  <div className="flex-center position-ref full-height">
             
                     <div className="content">
                         <div onClick={this.test} className="title m-b-md">
-                            Home
+                            Registration Page
                         </div>
                     </div>
                 </div>
@@ -32,4 +32,4 @@ class WelcomePage extends Component {
     }
 }
 
-export default connect(null)(WelcomePage)
+export default connect(null)(RegisterPage)

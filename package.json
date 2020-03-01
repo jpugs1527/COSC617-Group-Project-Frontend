@@ -15,7 +15,11 @@
     "@mernjs/framework": "0.0.7",
     "@mernjs/react-redux": "0.0.6",
     "babel-register": "^6.26.0",
-    "nodemon": "^2.0.2"
+    "bootstrap": "^4.4.1",
+    "nodemon": "^2.0.2",
+    "react": "^16.13.0",
+    "react-bootstrap": "^1.0.0-beta.17",
+    "react-dom": "^16.13.0"
   },
   "browserslist": {
     "production": [
