@@ -38,38 +38,38 @@ class RegisterPage extends Component {
                     <title>Registration</title>
                 </Helmet>
                 
-                <div class="container">
+                <div className="container">
                     <p id="data"></p>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
+                    <div className="row">
+                        <div className="col-md-12">
+                            <div className="card">
+                                <div className="card-header">
                                     Register
                                 </div>
-                                <div class="card-body">
-                                    <div class="col-md-8">
+                                <div className="card-body">
+                                    <div className="col-md-8">
                                         <form onSubmit={this.handleSubmit}>
-                                            <div class="form-group">
-                                                <label for="username">Username</label>
-                                                <input type="text" class="form-control" name="username" placeholder="Enter username" 
+                                            <div className="form-group">
+                                                <label htmlFor="username">Username</label>
+                                                <input type="text" className="form-control" name="username" placeholder="Enter username" 
                                                         value={this.state.username} onChange={this.handleChange} required/>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="email">Email address</label>
-                                                <input type="email" class="form-control" name="email" placeholder="Enter email"
+                                            <div className="form-group">
+                                                <label htmlFor="email">Email address</label>
+                                                <input type="email" className="form-control" name="email" placeholder="Enter email"
                                                         value={this.state.email} onChange={this.handleChange} required/>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" class="form-control" name="password" placeholder="Enter Password"
+                                            <div className="form-group">
+                                                <label htmlFor="password">Password</label>
+                                                <input type="password" className="form-control" name="password" placeholder="Enter Password"
                                                         value={this.state.password} onChange={this.handleChange} required/>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="confirm_password">Confirm Password</label>
-                                                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"
+                                            <div className="form-group">
+                                                <label htmlFor="confirm_password">Confirm Password</label>
+                                                <input type="password" className="form-control" name="confirm_password" placeholder="Confirm Password"
                                                         value={this.state.confirm_password} onChange={this.handleChange} required/>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Register</button>
+                                            <button type="submit" className="btn btn-primary">Register</button>
                                         </form>
                                     </div>
                                 </div>

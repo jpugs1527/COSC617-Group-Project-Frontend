@@ -35,28 +35,28 @@ class LoginPage extends Component {
                 <Helmet>
                     <title>Login</title>
                 </Helmet>
-                <div class="container">
+                <div className="container">
                     <p id="data"></p>
-                    <div class="row">
-                        <div class="col-sm">
-                            <div class="card">
-                                <div class="card-header">
+                    <div className="row">
+                        <div className="col-sm">
+                            <div className="card">
+                                <div className="card-header">
                                     Login
                                 </div>
-                                <div class="card-body">
-                                    <div class="col-md-8">
+                                <div className="card-body">
+                                    <div className="col-md-8">
                                         <form onSubmit={this.handleSubmit}>
-                                            <div class="form-group">
-                                                <label for="username">Username</label>
-                                                <input type="text" class="form-control" name="username" placeholder="Enter username" 
+                                            <div className="form-group">
+                                                <label htmlFor="username">Username</label>
+                                                <input type="text" className="form-control" name="username" placeholder="Enter username" 
                                                         value={this.state.username} onChange={this.handleChange} required/>
                                             </div>
-                                            <div class="form-group">
-                                                <label for="password">Password</label>
-                                                <input type="password" class="form-control" name="password" placeholder="Enter Password"
+                                            <div className="form-group">
+                                                <label htmlFor="password">Password</label>
+                                                <input type="password" className="form-control" name="password" placeholder="Enter Password"
                                                          value={this.state.password} onChange={this.handleChange} required/>
                                             </div>
-                                            <button type="submit" class="btn btn-primary">Login</button>
+                                            <button type="submit" className="btn btn-primary">Login</button>
                                         </form>
                                     </div>
                                 </div>
