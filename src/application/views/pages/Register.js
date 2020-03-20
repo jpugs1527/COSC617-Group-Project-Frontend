@@ -7,8 +7,27 @@ import Footer from '../common/Footer'
 
 class RegisterPage extends Component {
     
-    test = () => {
-        this.props.dispatch(RegisterActions.test({name: 'MERN.JS'}))
+    constructor(props) {
+        super(props);
+        this.state = {
+            username : '',
+            email : '',
+            password : '',
+            confirm_password : ''
+        };
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        var field = event.target.attributes.name.nodeValue; 
+        this.setState({ [field] : event.target.value});
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        document.getElementById("data").innerHTML = JSON.stringify(this.state);
     }
 
     render() { 
@@ -18,7 +37,9 @@ class RegisterPage extends Component {
                 <Helmet>
                     <title>Registration</title>
                 </Helmet>
+                
                 <div class="container">
+                    <p id="data"></p>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -27,22 +48,26 @@ class RegisterPage extends Component {
                                 </div>
                                 <div class="card-body">
                                     <div class="col-md-8">
-                                        <form>
+                                        <form onSubmit={this.handleSubmit}>
                                             <div class="form-group">
                                                 <label for="username">Username</label>
-                                                <input type="text" class="form-control" id="username" placeholder="Enter username"/>
+                                                <input type="text" class="form-control" name="username" placeholder="Enter username" 
+                                                        value={this.state.username} onChange={this.handleChange} required/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="email">Email address</label>
-                                                <input type="email" class="form-control" id="email" placeholder="Enter email"/>
+                                                <input type="email" class="form-control" name="email" placeholder="Enter email"
+                                                        value={this.state.email} onChange={this.handleChange} required/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
-                                                <input type="password" class="form-control" id="password" placeholder="Enter Password"/>
+                                                <input type="password" class="form-control" name="password" placeholder="Enter Password"
+                                                        value={this.state.password} onChange={this.handleChange} required/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="confirm_password">Confirm Password</label>
-                                                <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password"/>
+                                                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"
+                                                        value={this.state.confirm_password} onChange={this.handleChange} required/>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Register</button>
                                         </form>

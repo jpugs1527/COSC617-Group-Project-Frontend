@@ -24,8 +24,8 @@ class LoginPage extends Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state);
         event.preventDefault();
+        document.getElementById("data").innerHTML = JSON.stringify(this.state);
     }
 
     render() { 
@@ -36,6 +36,7 @@ class LoginPage extends Component {
                     <title>Login</title>
                 </Helmet>
                 <div class="container">
+                    <p id="data"></p>
                     <div class="row">
                         <div class="col-sm">
                             <div class="card">
@@ -48,12 +49,12 @@ class LoginPage extends Component {
                                             <div class="form-group">
                                                 <label for="username">Username</label>
                                                 <input type="text" class="form-control" name="username" placeholder="Enter username" 
-                                                        value={this.state.username} onChange={this.handleChange} />
+                                                        value={this.state.username} onChange={this.handleChange} required/>
                                             </div>
                                             <div class="form-group">
                                                 <label for="password">Password</label>
                                                 <input type="password" class="form-control" name="password" placeholder="Enter Password"
-                                                         value={this.state.password} onChange={this.handleChange}/>
+                                                         value={this.state.password} onChange={this.handleChange} required/>
                                             </div>
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </form>
@@ -63,6 +64,7 @@ class LoginPage extends Component {
                         </div>
                     </div>
                 </div>
+                
                 <Footer />
             </div>
         )
