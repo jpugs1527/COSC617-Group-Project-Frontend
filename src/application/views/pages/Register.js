@@ -18,11 +18,35 @@ class RegisterPage extends Component {
                 <Helmet>
                     <title>Registration</title>
                 </Helmet>
-                 <div className="flex-center position-ref full-height">
-            
-                    <div className="content">
-                        <div onClick={this.test} className="title m-b-md">
-                            Registration Page
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <div class="card">
+                                <div class="card-header">
+                                    Register
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" id="username" placeholder="Enter username"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email address</label>
+                                            <input type="email" class="form-control" id="email" placeholder="Enter email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password</label>
+                                            <input type="password" class="form-control" id="password" placeholder="Enter Password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="confirm_password">Confirm Password</label>
+                                            <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password"/>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
