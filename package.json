@@ -16,10 +16,17 @@
     "@mernjs/react-redux": "0.0.6",
     "babel-register": "^6.26.0",
     "bootstrap": "^4.4.1",
+    "bootstrap-daterangepicker": "^3.0.5",
+    "jquery": "^3.4.1",
+    "moment": "^2.24.0",
     "nodemon": "^2.0.2",
-    "react": "^16.13.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1",
     "react-bootstrap": "^1.0.0-beta.17",
-    "react-dom": "^16.13.0"
+    "react-bootstrap-date-picker": "^5.1.0",
+    "react-bootstrap-daterangepicker": "^4.1.0",
+    "react-dom": "^16.13.0",
+    "underscore": "^1.9.2"
   },
   "browserslist": {
     "production": [

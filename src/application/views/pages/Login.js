@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
+import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import { LoginActions } from '../../actions'
@@ -25,7 +27,7 @@ class LoginPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        document.getElementById("data").innerHTML = JSON.stringify(this.state);
+        $("#data").html(JSON.stringify(this.state));
     }
 
     render() { 
@@ -35,36 +37,31 @@ class LoginPage extends Component {
                 <Helmet>
                     <title>Login</title>
                 </Helmet>
-                <div className="container">
+                <br/>
+                <Container>
                     <p id="data"></p>
-                    <div className="row">
-                        <div className="col-sm">
-                            <div className="card">
-                                <div className="card-header">
-                                    Login
-                                </div>
-                                <div className="card-body">
-                                    <div className="col-md-8">
-                                        <form onSubmit={this.handleSubmit}>
-                                            <div className="form-group">
-                                                <label htmlFor="username">Username</label>
-                                                <input type="text" className="form-control" name="username" placeholder="Enter username" 
-                                                        value={this.state.username} onChange={this.handleChange} required/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="password">Password</label>
-                                                <input type="password" className="form-control" name="password" placeholder="Enter Password"
-                                                         value={this.state.password} onChange={this.handleChange} required/>
-                                            </div>
-                                            <button type="submit" className="btn btn-primary">Login</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+                    <Card>
+                        <Card.Header>Login</Card.Header>
+                        <Card.Body>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="text" placeholder="Username" name="username"
+                                                value={this.state.username} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="password" placeholder="Password" name="password"
+                                                value={this.state.password} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Button type="submit" variant="outline-primary">Login</Button>
+                                <a href="#" id="forgot-password">Forgot Password?</a>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Container>
                 <Footer />
             </div>
         )

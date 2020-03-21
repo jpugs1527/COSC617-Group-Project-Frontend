@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
+import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import { RegisterActions } from '../../actions'
@@ -27,7 +29,7 @@ class RegisterPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        document.getElementById("data").innerHTML = JSON.stringify(this.state);
+        $("#data").html(JSON.stringify(this.state));
     }
 
     render() { 
@@ -37,46 +39,41 @@ class RegisterPage extends Component {
                 <Helmet>
                     <title>Registration</title>
                 </Helmet>
-                
-                <div className="container">
+                <Container>
                     <p id="data"></p>
-                    <div className="row">
-                        <div className="col-md-12">
-                            <div className="card">
-                                <div className="card-header">
-                                    Register
-                                </div>
-                                <div className="card-body">
-                                    <div className="col-md-8">
-                                        <form onSubmit={this.handleSubmit}>
-                                            <div className="form-group">
-                                                <label htmlFor="username">Username</label>
-                                                <input type="text" className="form-control" name="username" placeholder="Enter username" 
-                                                        value={this.state.username} onChange={this.handleChange} required/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="email">Email address</label>
-                                                <input type="email" className="form-control" name="email" placeholder="Enter email"
-                                                        value={this.state.email} onChange={this.handleChange} required/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="password">Password</label>
-                                                <input type="password" className="form-control" name="password" placeholder="Enter Password"
-                                                        value={this.state.password} onChange={this.handleChange} required/>
-                                            </div>
-                                            <div className="form-group">
-                                                <label htmlFor="confirm_password">Confirm Password</label>
-                                                <input type="password" className="form-control" name="confirm_password" placeholder="Confirm Password"
-                                                        value={this.state.confirm_password} onChange={this.handleChange} required/>
-                                            </div>
-                                            <button type="submit" className="btn btn-primary">Register</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <Card>
+                        <Card.Header>Register</Card.Header>
+                        <Card.Body>
+                            <Form onSubmit={this.handleSubmit}>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="text" placeholder="Username" name="username"
+                                                value={this.state.username} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="email" placeholder="Email" name="email"
+                                                value={this.state.email} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="password" placeholder="Password" name="password"
+                                                value={this.state.password} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm={8}>
+                                        <FormControl type="password" placeholder="Confirm Password" name="confirm_password"
+                                                value={this.state.confirm_password} onChange={this.handleChange} required/><br/>
+                                    </Col>
+                                </Row>
+                                <Button type="submit" variant="outline-primary">Register</Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Container>
                 <Footer />
             </div>
         )
