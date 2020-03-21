@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
-import { Col, Container, Row, Form, FormControl, Button} from 'react-bootstrap'
-import { Redirect } from 'react-router-dom'
-import DateRangePicker from 'react-bootstrap-daterangepicker'
+import { Container, Row, Form, FormControl, Button} from 'react-bootstrap'
 import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import { WelcomeActions } from '../../actions'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
+import Search from '../common/Search'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-daterangepicker/daterangepicker.css'
 
@@ -66,17 +65,10 @@ class WelcomePage extends Component {
                             <div className="welcomeH1 text-primary min-padding">Rental cars - the easy way.</div>
                         </Row>
                         <Row className="justify-content-md-center min-padding">
-                            <Form onSubmit={this.handleSubmit} inline>
-                                <FormControl type="text" placeholder="Where" className="space" name="where" onChange={this.handleChange} required/>
-                                <DateRangePicker startDate={this.state.from} endDate={this.state.to} onHide={this.hideEvent}>
-                                    <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
-                                </DateRangePicker>
-                                <Button type="submit" variant="primary">Search</Button>
-                            </Form>
+                            <Search object={this}/>
                         </Row>
                     </Container>
                 </div>
-                <p id="data"></p>
                 <Footer />
             </div>
         )
