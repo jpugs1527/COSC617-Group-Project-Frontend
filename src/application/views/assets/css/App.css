@@ -48,3 +48,39 @@ html, body {
 .m-b-md {
     margin-bottom: 30px;
 }
+
+#forgot-password {
+    margin-left: 20px;
+}
+
+#homepage {
+    background: url('../images/car.jpg') no-repeat;
+    height: 800px;
+    background-size: cover;
+    background-position: center;
+}
+
+#homepageContainer {
+    padding-top: 250px;
+}
+
+.space {
+    margin-right:10px;
+}
+
+.welcomeH1 {
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
+    margin: 0px;
+    font-weight: 900;
+}
+
+@media only screen and (max-width: 767px) {
+    .min-padding {
+        padding: 10px;
+    }
+}
+
+
+    

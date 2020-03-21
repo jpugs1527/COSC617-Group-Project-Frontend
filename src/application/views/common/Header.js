@@ -6,10 +6,11 @@ function Header() {
     <div>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
         <Navbar expand="lg" variant="dark" bg="dark">
-        <Navbar.Brand href="/">Brand</Navbar.Brand>
+        <Navbar.Brand href="/">JLT</Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
+                <Nav.Link href="/login">Login</Nav.Link>
                 <Nav.Link href="/register">Register</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                     <NavDropdown.Item>Action</NavDropdown.Item>
@@ -21,7 +22,7 @@ function Header() {
             </Nav>
             <Form inline>
                 <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                <Button variant="outline-success">Search</Button>
+                <Button variant="outline-primary">Search</Button>
             </Form>
         </Navbar.Collapse>
         </Navbar>
