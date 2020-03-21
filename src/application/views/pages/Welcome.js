@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Col, Container, Row, Form, FormControl, Button} from 'react-bootstrap'
+import { Redirect } from 'react-router-dom'
 import DateRangePicker from 'react-bootstrap-daterangepicker'
 import $ from "jquery"
 import { Helmet } from "react-helmet"
@@ -49,7 +50,7 @@ class WelcomePage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $("#data").html(JSON.stringify(this.state));
+        window.location.replace("/search?" +$.param(this.state));
     }
 
     render() { 
@@ -66,7 +67,7 @@ class WelcomePage extends Component {
                         </Row>
                         <Row className="justify-content-md-center min-padding">
                             <Form onSubmit={this.handleSubmit} inline>
-                                <FormControl type="text" placeholder="Where" className="space" name="where" onChange={this.handleChange} />
+                                <FormControl type="text" placeholder="Where" className="space" name="where" onChange={this.handleChange} required/>
                                 <DateRangePicker startDate={this.state.from} endDate={this.state.to} onHide={this.hideEvent}>
                                     <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
                                 </DateRangePicker>
