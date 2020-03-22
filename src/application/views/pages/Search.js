@@ -49,6 +49,7 @@ class SearchPage extends Component {
                 </Helmet>
                 <Container><br/>
                     <Search/><br/>
+                    <h1>Search Results</h1>
                     <CardColumns>
                         {cards}
                     </CardColumns>

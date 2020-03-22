@@ -69,7 +69,7 @@ class Search extends Component {
                             endDate={this.state.to}
                             minDate={this.today}
                             onHide={this.hideEvent}>
-                            <Button type="button" variant="light">{this.state.from} - {this.state.to}</Button>
+                            <Button type="button" variant="light" id="searchButton">{this.state.from} - {this.state.to}</Button>
                         </DateRangePicker>
                     </div>
                     <div className="space-on-left">
