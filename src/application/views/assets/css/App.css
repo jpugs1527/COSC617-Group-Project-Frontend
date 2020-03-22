@@ -96,6 +96,14 @@ html, body {
     background-color: white;
 }
 
+#modalDiv {
+    padding: 10px;
+}
+
+#modalDiv > p {
+    font-size: 10px;
+}
+
 @media only screen and (max-width: 767px) {
     .min-padding {
         padding: 10px;

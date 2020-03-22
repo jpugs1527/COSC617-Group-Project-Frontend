@@ -6,13 +6,8 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import Search from '../common/Search'
 import customData from '../assets/json/sample-cars'
-import $ from "jquery"
 
 class SearchPage extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render() { 
         const image = require('../assets/images/car.jpg');
@@ -21,7 +16,7 @@ class SearchPage extends Component {
         customData.data.map((data, idx) => {
             let url = "/vehicle?vehicle_id=" + idx;
             let vehicleName = data.year + " " + data.manufacturer + " " + data.model;
-            cards.push(
+            return cards.push(
                 <Card
                     className="vehicleCards"
                     border="dark"

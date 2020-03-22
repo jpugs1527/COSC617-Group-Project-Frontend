@@ -8,7 +8,7 @@ function Header() {
     let doNotShow = ["/", "/search"];
 
     doNotShow.forEach(function(text){
-        if (window.location.pathname == text) {
+        if (window.location.pathname === text) {
             searchArea = "";
         }
     });
