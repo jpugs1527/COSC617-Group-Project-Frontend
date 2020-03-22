@@ -90,3 +90,7 @@ export function serverErrorHandler(error,  form_name){
         return toast.error("502 Bad Gateway");
     }
 }
+
+export function formatDate(givenDate) {
+    return (givenDate.getMonth() + 1) + "/"+givenDate.getDate() + "/" + givenDate.getFullYear();
+}

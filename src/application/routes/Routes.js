@@ -3,6 +3,7 @@ import React from 'react';
 const WelcomePage 	= React.lazy(() => import('../views/pages/Welcome'))
 const RegisterPage 	= React.lazy(() => import('../views/pages/Register'))
 const LoginPage 	= React.lazy(() => import('../views/pages/Login'))
+const Search        = React.lazy(() => import('../views/pages/Search'))
 const Page404       = React.lazy(() => import('../views/pages/NotFound'))
 
 export default [
@@ -19,6 +20,11 @@ export default [
     {
         path: "/login",
         component: LoginPage,
+        private: false
+    },
+    {
+        path: "/search",
+        component: Search,
         private: false
     },
     {
