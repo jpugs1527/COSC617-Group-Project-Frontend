@@ -83,3 +83,14 @@ html, body {
         padding: 10px;
     }
 }
+
+.vehicleCards {
+    cursor: pointer;
+}
+
+.vehicleCards:hover {
+    border-color: blue !important;
+    color: blue;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}

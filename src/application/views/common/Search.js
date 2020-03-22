@@ -10,14 +10,14 @@ class Search extends Component {
     constructor(props) {
         super(props);
         var date = new Date();
-        var from_date = this.formatDate(date);
+        var today = this.formatDate(date);
+        var from_date = today;
         var to_date = this.formatDate(new Date(date.setDate(date.getDate() + 3)));
 
         this.state = {
             location : this.getQueryVariable('location') ? this.getQueryVariable('location') : "",
             from : this.getQueryVariable('from') ? this.getQueryVariable('from') : from_date,
-            to : this.getQueryVariable('to') ? this.getQueryVariable('to') : to_date,
-            today : from_date
+            to : this.getQueryVariable('to') ? this.getQueryVariable('to') : to_date
         };
 
         this.hideEvent = this.hideEvent.bind(this);
@@ -64,7 +64,7 @@ class Search extends Component {
                     <DateRangePicker 
                         startDate={this.state.from} 
                         endDate={this.state.to}
-                        minDate={this.state.today}
+                        minDate={this.today}
                         onHide={this.hideEvent}>
                         <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
                     </DateRangePicker>
