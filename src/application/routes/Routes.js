@@ -1,11 +1,13 @@
 import React from 'react';
 
-const WelcomePage 	    = React.lazy(() => import('../views/pages/Welcome'))
-const RegisterPage 	    = React.lazy(() => import('../views/pages/Register'))
-const LoginPage 	    = React.lazy(() => import('../views/pages/Login'))
-const SearchPage        = React.lazy(() => import('../views/pages/Search'))
-const ViewVehiclePage   = React.lazy(() => import('../views/pages/ViewVehicle'))
-const Page404           = React.lazy(() => import('../views/pages/NotFound'))
+const WelcomePage 	        = React.lazy(() => import('../views/pages/Welcome'))
+const RegisterPage 	        = React.lazy(() => import('../views/pages/Register'))
+const LoginPage 	        = React.lazy(() => import('../views/pages/Login'))
+const SearchPage            = React.lazy(() => import('../views/pages/Search'))
+const ViewVehiclePage       = React.lazy(() => import('../views/pages/ViewVehicle'))
+const UserAddVehiclePage    = React.lazy(() => import('../views/pages/user/AddVehicle'))
+const UserViewVehiclesPage  = React.lazy(() => import('../views/pages/user/ViewVehicles'))
+const Page404               = React.lazy(() => import('../views/pages/NotFound'))
 
 export default [
 	{
@@ -31,6 +33,16 @@ export default [
     {
         path: "/vehicle",
         component: ViewVehiclePage,
+        private: false
+    },
+    {
+        path: "/user/vehicle/add",
+        component: UserAddVehiclePage,
+        private: false
+    },
+    {
+        path: "/user/vehicle/view",
+        component: UserViewVehiclesPage,
         private: false
     },
     {

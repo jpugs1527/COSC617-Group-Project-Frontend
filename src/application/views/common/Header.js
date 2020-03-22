@@ -22,12 +22,12 @@ function Header() {
                     <Nav className="mr-auto">
                     <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/register">Register</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item>Action</NavDropdown.Item>
-                        <NavDropdown.Item>Another action</NavDropdown.Item>
+                    <NavDropdown title="User Stuff" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/user/vehicle/add">Add Vehicle</NavDropdown.Item>
+                        <NavDropdown.Item href="/user/vehicle/view">View Vehicle</NavDropdown.Item>
                         <NavDropdown.Item>Something</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                        <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 {searchArea}
