@@ -28,13 +28,8 @@ class Search extends Component {
     }
 
     getQueryVariable(variable) {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return decodeURIComponent(pair[1]);}
-       }
-       return;
+        let params = (new URL(document.location)).searchParams;
+        return params.get(variable);
     }
 
     formatDate(givenDate) {
@@ -62,12 +57,12 @@ class Search extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} inline>
-                    <div class="d-inline-flex p-2">
+                    <div className="d-inline-flex p-2">
                         <FontAwesomeIcon icon={faLocationArrow} className="searchComponentIcons"/>
                         <FormControl type="text" placeholder="Location" name="location" 
                                 value={this.state.location} onChange={this.handleChange} required/>
                     </div>
-                    <div class="d-inline-flex p-2">
+                    <div className="d-inline-flex p-2">
                         <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
                         <DateRangePicker 
                             startDate={this.state.from} 
@@ -77,7 +72,7 @@ class Search extends Component {
                             <Button type="button" variant="light">{this.state.from} - {this.state.to}</Button>
                         </DateRangePicker>
                     </div>
-                    <div class="space-on-left">
+                    <div className="space-on-left">
                         <Button type="submit" variant="primary" >Search</Button>
                     </div>
                 </Form>
