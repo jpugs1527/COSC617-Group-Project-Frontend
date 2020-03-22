@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Form, FormControl, Button} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationArrow, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import DateRangePicker from 'react-bootstrap-daterangepicker'
 import $ from "jquery"
 import 'bootstrap/dist/css/bootstrap.css'
@@ -10,8 +12,8 @@ class Search extends Component {
     constructor(props) {
         super(props);
         var date = new Date();
-        var today = this.formatDate(date);
-        var from_date = today;
+        this.today = this.formatDate(date);
+        var from_date = this.today;
         var to_date = this.formatDate(new Date(date.setDate(date.getDate() + 3)));
 
         this.state = {
@@ -60,7 +62,9 @@ class Search extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} inline>
+                    <FontAwesomeIcon icon={faLocationArrow} className="searchComponentIcons"/>
                     <FormControl type="text" placeholder="Location" className="space" name="location" value={this.state.location} onChange={this.handleChange} required/>
+                    <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
                     <DateRangePicker 
                         startDate={this.state.from} 
                         endDate={this.state.to}

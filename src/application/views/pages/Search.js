@@ -12,7 +12,7 @@ class SearchPage extends Component {
     constructor(props) {
         super(props);
         this.url = "";
-
+        
         this.redirect = this.redirect.bind(this);
     }
 
