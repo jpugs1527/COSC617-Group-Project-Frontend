@@ -14,9 +14,10 @@ class Search extends Component {
         var to_date = this.formatDate(new Date(date.setDate(date.getDate() + 3)));
 
         this.state = {
-            where : this.getQueryVariable('where'),
+            location : this.getQueryVariable('location') ? this.getQueryVariable('location') : "",
             from : this.getQueryVariable('from') ? this.getQueryVariable('from') : from_date,
             to : this.getQueryVariable('to') ? this.getQueryVariable('to') : to_date,
+            today : from_date
         };
 
         this.hideEvent = this.hideEvent.bind(this);
@@ -59,8 +60,12 @@ class Search extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} inline>
-                    <FormControl type="text" placeholder="Where" className="space" name="where" value={this.state.where} onChange={this.handleChange} required/>
-                    <DateRangePicker startDate={this.state.from} endDate={this.state.to} onHide={this.hideEvent}>
+                    <FormControl type="text" placeholder="Location" className="space" name="location" value={this.state.location} onChange={this.handleChange} required/>
+                    <DateRangePicker 
+                        startDate={this.state.from} 
+                        endDate={this.state.to}
+                        minDate={this.state.today}
+                        onHide={this.hideEvent}>
                         <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
                     </DateRangePicker>
                     <Button type="submit" variant="primary">Search</Button>
