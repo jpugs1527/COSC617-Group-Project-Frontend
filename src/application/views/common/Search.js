@@ -62,17 +62,24 @@ class Search extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} inline>
-                    <FontAwesomeIcon icon={faLocationArrow} className="searchComponentIcons"/>
-                    <FormControl type="text" placeholder="Location" className="space" name="location" value={this.state.location} onChange={this.handleChange} required/>
-                    <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
-                    <DateRangePicker 
-                        startDate={this.state.from} 
-                        endDate={this.state.to}
-                        minDate={this.today}
-                        onHide={this.hideEvent}>
-                        <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
-                    </DateRangePicker>
-                    <Button type="submit" variant="primary">Search</Button>
+                    <div class="d-inline-flex p-2">
+                        <FontAwesomeIcon icon={faLocationArrow} className="searchComponentIcons"/>
+                        <FormControl type="text" placeholder="Location" name="location" 
+                                value={this.state.location} onChange={this.handleChange} required/>
+                    </div>
+                    <div class="d-inline-flex p-2">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
+                        <DateRangePicker 
+                            startDate={this.state.from} 
+                            endDate={this.state.to}
+                            minDate={this.today}
+                            onHide={this.hideEvent}>
+                            <Button type="button" variant="light">{this.state.from} - {this.state.to}</Button>
+                        </DateRangePicker>
+                    </div>
+                    <div class="space-on-left">
+                        <Button type="submit" variant="primary" >Search</Button>
+                    </div>
                 </Form>
             </div>
         )
