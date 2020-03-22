@@ -49,7 +49,7 @@ html, body {
     margin-bottom: 30px;
 }
 
-#forgot-password {
+.space-on-left {
     margin-left: 20px;
 }
 
@@ -64,18 +64,31 @@ html, body {
     padding-top: 250px;
 }
 
-.space {
-    margin-right:10px;
-}
-
 .welcomeH1 {
     text-align: center;
     font-family: 'Montserrat', sans-serif;
     font-size: 42px;
     margin: 0px;
     font-weight: 900;
-    -webkit-text-stroke: 1px rgb(106, 108, 255);
+    -webkit-text-stroke: 1px #007bff;
     color: rgb(255, 255, 255);
+}
+
+.vehicleCards {
+    cursor: pointer;
+}
+
+.vehicleCards:hover {
+    border-color: #007bff !important;
+    color: #007bff;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
+}
+
+.searchComponentIcons {
+    color: #007bff;
+    margin: 0px 10px;
+    margin-top: 10px;
 }
 
 @media only screen and (max-width: 767px) {
@@ -83,10 +96,3 @@ html, body {
         padding: 10px;
     }
 }
-
-.carListCards {
-    width: '18rem';
-}
-
-
-    

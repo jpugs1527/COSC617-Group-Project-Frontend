@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Form, FormControl, Button} from 'react-bootstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faLocationArrow, faCalendarAlt } from '@fortawesome/free-solid-svg-icons'
 import DateRangePicker from 'react-bootstrap-daterangepicker'
 import $ from "jquery"
 import 'bootstrap/dist/css/bootstrap.css'
@@ -10,13 +12,14 @@ class Search extends Component {
     constructor(props) {
         super(props);
         var date = new Date();
-        var from_date = this.formatDate(date);
+        this.today = this.formatDate(date);
+        var from_date = this.today;
         var to_date = this.formatDate(new Date(date.setDate(date.getDate() + 3)));
 
         this.state = {
-            where : this.getQueryVariable('where'),
+            location : this.getQueryVariable('location') ? this.getQueryVariable('location') : "",
             from : this.getQueryVariable('from') ? this.getQueryVariable('from') : from_date,
-            to : this.getQueryVariable('to') ? this.getQueryVariable('to') : to_date,
+            to : this.getQueryVariable('to') ? this.getQueryVariable('to') : to_date
         };
 
         this.hideEvent = this.hideEvent.bind(this);
@@ -25,13 +28,8 @@ class Search extends Component {
     }
 
     getQueryVariable(variable) {
-       var query = window.location.search.substring(1);
-       var vars = query.split("&");
-       for (var i=0;i<vars.length;i++) {
-               var pair = vars[i].split("=");
-               if(pair[0] == variable){return decodeURIComponent(pair[1]);}
-       }
-       return;
+        let params = (new URL(document.location)).searchParams;
+        return params.get(variable);
     }
 
     formatDate(givenDate) {
@@ -59,11 +57,24 @@ class Search extends Component {
         return (
             <div>
                 <Form onSubmit={this.handleSubmit} inline>
-                    <FormControl type="text" placeholder="Where" className="space" name="where" value={this.state.where} onChange={this.handleChange} required/>
-                    <DateRangePicker startDate={this.state.from} endDate={this.state.to} onHide={this.hideEvent}>
-                        <Button type="button" variant="light" className="space">{this.state.from} - {this.state.to}</Button>
-                    </DateRangePicker>
-                    <Button type="submit" variant="primary">Search</Button>
+                    <div className="d-inline-flex p-2">
+                        <FontAwesomeIcon icon={faLocationArrow} className="searchComponentIcons"/>
+                        <FormControl type="text" placeholder="Location" name="location" 
+                                value={this.state.location} onChange={this.handleChange} required/>
+                    </div>
+                    <div className="d-inline-flex p-2">
+                        <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
+                        <DateRangePicker 
+                            startDate={this.state.from} 
+                            endDate={this.state.to}
+                            minDate={this.today}
+                            onHide={this.hideEvent}>
+                            <Button type="button" variant="light">{this.state.from} - {this.state.to}</Button>
+                        </DateRangePicker>
+                    </div>
+                    <div className="space-on-left">
+                        <Button type="submit" variant="primary" >Search</Button>
+                    </div>
                 </Form>
             </div>
         )
