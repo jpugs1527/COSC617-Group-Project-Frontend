@@ -14,49 +14,34 @@ import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 // Register the plugins
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
-// Our app
 class FileUploadInput extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			// Set initial files, type 'local' means this is a file
-			// that has already been uploaded to the server (see docs)
-			files: [
-				// {
-				// 	source: 'index.html',
-				// 	options: {
-				// 		type: 'local'
-				// 	}
-				// }
-			]
+			files: []
 		};
-	}
-
-	handleInit() {
-		console.log("FilePond instance has initialised", this.pond);
 	}
 
 	render() {
 		return (
-		<div>
-			Upload Vehicle Images
-			{/* Pass FilePond properties as attributes */}
-			<FilePond
-			ref={ref => (this.pond = ref)}
-			files={this.state.files}
-			allowMultiple={true}
-			maxFiles={5}
-			//server="/api"
-			//oninit={() => this.handleInit()}
-			onupdatefiles={fileItems => {
-				// Set currently active file objects to this.state
-				this.setState({
-				files: fileItems.map(fileItem => fileItem.file)
-				});
-			}}
-			/>
-		</div>
+			<div>
+				Upload Vehicle Images
+				{/* Pass FilePond properties as attributes */}
+				<FilePond
+				ref={ref => (this.pond = ref)}
+				files={this.state.files}
+				allowMultiple={true}
+				maxFiles={10}
+				//server="/api"
+				onupdatefiles={fileItems => {
+					// Set currently active file objects to this.state
+					this.setState({
+						files: fileItems.map(fileItem => fileItem.file)
+					});
+				}}
+				/>
+			</div>
 		);
 	}
 }

@@ -25,7 +25,8 @@ function Header() {
                     <NavDropdown title="User Stuff" id="basic-nav-dropdown">
                         <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
                         <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
-                        <NavDropdown.Item>Something</NavDropdown.Item>
+                        <NavDropdown.Item>View Profile</NavDropdown.Item>
+                        <NavDropdown.Item>Rental History</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
                     </NavDropdown>

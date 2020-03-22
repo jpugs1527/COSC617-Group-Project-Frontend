@@ -8,21 +8,26 @@ class VehicleInfo extends Component {
     constructor(props) {
         super(props);
 
+        let year = "";
+        let manufacturer = "";
+        let model = "";
+
+        if (typeof this.props.info !== 'undefined') {
+            year = this.props.info.year;
+            manufacturer = this.props.info.manufacturer;
+            model = this.props.info.model;
+        }
+
         this.state = {
-            year : '',
-            model : '',
-            make : '',
+            year : year,
+            model : model,
+            manufacturer : manufacturer,
             files : [],
             error : ''
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    getQueryVariable(variable) {
-        let params = (new URL(document.location)).searchParams;
-        return params.get(variable);
     }
 
     handleChange(event) {
@@ -48,8 +53,8 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FormControl type="text" placeholder="Make" name="make"
-                                    value={this.state.make} onChange={this.handleChange} required/>
+                            <FormControl type="text" placeholder="manufacturer" name="manufacturer"
+                                    value={this.state.manufacturer} onChange={this.handleChange} required/>
                         </Col>
                     </Row><br/>
                     <Row>

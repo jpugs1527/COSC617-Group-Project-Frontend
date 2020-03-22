@@ -23,6 +23,11 @@ class ViewVehiclePage extends Component {
                 <VehicleCard data={vehicleData} key={idx}/>
             );
         });
+
+        let message = "Edit your vehicles information and availability.";
+        if (cards.length == 0) {
+            message = "You have not added a vehicle.";
+        }
         
         return (
             <div>
@@ -34,7 +39,7 @@ class ViewVehiclePage extends Component {
                     <Card>
                         <Card.Header>Your Vehicles</Card.Header>
                         <Card.Body>
-                            <p>Edit your vehicles information and availability.</p>
+                            <p>{message}</p>
                             <CardColumns>
                                 {cards}
                             </CardColumns>
