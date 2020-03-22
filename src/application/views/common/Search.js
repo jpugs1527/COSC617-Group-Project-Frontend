@@ -33,13 +33,13 @@ class Search extends Component {
     }
 
     formatDate(givenDate) {
-        return (givenDate.getMonth() + 1) + "/"+givenDate.getDate() + "/" + givenDate.getFullYear();
+        return (givenDate.getMonth() + 1) + "/" + givenDate.getDate() + "/" + givenDate.getFullYear();
     }
 
     hideEvent(event, picker) {
         this.setState({
-            'from' : picker.startDate.format('MM/DD/YYYY'),
-            'to' : picker.endDate.format('MM/DD/YYYY')
+            from : picker.startDate.format('MM/DD/YYYY'),
+            to : picker.endDate.format('MM/DD/YYYY')
         });
     }
 
@@ -50,7 +50,7 @@ class Search extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        window.location.replace("/search?" +$.param(this.state));
+        window.location.replace("/search?" + $.param(this.state));
     }
 
     render() { 

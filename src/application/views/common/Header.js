@@ -13,10 +13,8 @@ function Header() {
         }
     });
     
-
     return (
         <div>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
             <Navbar expand="lg" variant="dark" bg="dark">
             <Navbar.Brand href="/">JLT</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
