@@ -23,8 +23,8 @@ function Header() {
                     <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/register">Register</Nav.Link>
                     <NavDropdown title="User Stuff" id="basic-nav-dropdown">
-                        <NavDropdown.Item href="/user/vehicle/add">Add Vehicle</NavDropdown.Item>
-                        <NavDropdown.Item href="/user/vehicle/view">View Vehicle</NavDropdown.Item>
+                        <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
+                        <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
                         <NavDropdown.Item>Something</NavDropdown.Item>
                         <NavDropdown.Divider />
                         <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>

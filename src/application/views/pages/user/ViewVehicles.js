@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
-import { Container, Card } from 'react-bootstrap'
+import { Container, Card, CardColumns } from 'react-bootstrap'
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
+import customData from '../../assets/json/sample-cars-user'
+import VehicleCard from '../../common/VehicleCard'
 
 class ViewVehiclePage extends Component {
     
     render() {
+
+        let cards = [];
+        customData.data.map((data, idx) => {        
+            let vehicleData = {
+                url : "/user/vehicle/edit?vehicle_id=" + idx,
+                vehicleName : data.year + " " + data.manufacturer + " " + data.model,
+                image : require('../../assets/images/car.jpg')
+            };
+
+            return cards.push(
+                <VehicleCard data={vehicleData} key={idx}/>
+            );
+        });
         
         return (
             <div>
@@ -17,8 +32,12 @@ class ViewVehiclePage extends Component {
                 </Helmet>
                 <Container><br/>
                     <Card>
-                        <Card.Header>Vehicles</Card.Header>
+                        <Card.Header>Your Vehicles</Card.Header>
                         <Card.Body>
+                            <p>Edit your vehicles information and availability.</p>
+                            <CardColumns>
+                                {cards}
+                            </CardColumns>
                         </Card.Body>
                     </Card>
                 </Container>

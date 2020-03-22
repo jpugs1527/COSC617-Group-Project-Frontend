@@ -1,0 +1,56 @@
+{
+    "data" : [{ 
+        "img" : "test.jpg",
+        "manufacturer" : "Nissan",
+        "model" : "Rogue",
+        "price" : 15000,
+        "year" : 2010,
+        "quality" : [{ 
+            "name" : "overall",
+            "rating" : 1
+        },{ 
+            "name" : "mechanical",
+            "rating" : 4
+        },{ 
+            "name" : "powertrain",
+            "rating" : 2
+        },{ 
+            "name" : "body",
+            "rating" : 4
+        },{ 
+            "name" : "interior",
+            "rating" : 3
+        },{ 
+            "name" : "accessories",
+            "rating" : 2
+        }],
+        "wiki" : "/blah"
+    },{ 
+        "img" : "test.jpg",
+        "manufacturer" : "Mazda",
+        "model" : "CX-5",
+        "price" : 80000,
+        "year" : 2012,
+        "quality" : [{ 
+            "name" : "overall",
+              "rating" : 2
+            },
+            { "name" : "mechanical",
+              "rating" : 3
+            },
+            { "name" : "powertrain",
+              "rating" : 5
+            },
+            { "name" : "body",
+              "rating" : 4
+            },
+            { "name" : "interior",
+              "rating" : 2
+            },
+            { "name" : "accessories",
+              "rating" : 2
+            }
+        ],
+        "wiki" : "/blah"
+    }]
+}
