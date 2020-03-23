@@ -31,71 +31,66 @@ class VehicleInfo extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
 
-        //pulling defaults for manufacturers dropdown
-        this.manufacturers = [];
-
-        vehiclesData.results.map((data, idx) => {
-            if (!this.manufacturers.includes( data.Make)) {
-                return this.manufacturers.push( data.Make );
+        let _years = [];
+        vehiclesData.results.map((data) => {
+            if (!_years.includes( data.Year)) {
+                _years.push( data.Year );
             }
         });
-        this.manufacturers.sort();
 
-        let manufacturers = [];
-        $.each(this.manufacturers, function(idx, data){
-            manufacturers.push(
-            <option value={data}>{data}</option>
+        this.years = this.createOptions(_years, "year");
+        this.manufacturers = [];
+        this.models = [];
+    }
+
+    createOptions(array, id) {
+        //remove current options
+        //$('#'+id+' option:gt(0)').remove();
+
+        let retArr = [];
+        $.each(array.sort(), function(idx, data){
+            retArr.push(
+                <option value={data} key={idx}>{data}</option>
             );
         });
-        this.manufacturers = manufacturers;
 
-        console.log(vehiclesData);
+        return retArr;
     }
 
     handleChange(event) {
         var field = event.target.attributes.name.nodeValue; 
-        this.setState({ [field] : event.target.value});
+        this.setState({ [field] : event.target.value });
 
-        if (field == "manufacturer") {
-            this.years = [];
+        let _models = [];
+        let _manufacturers = [];
 
-            vehiclesData.results.map((data, idx) => {
-                if (event.target.value == data.Make) {
-                    if (!this.years.includes( data.Year)) {
-                        return this.years.push( data.Year );
-                    }
-                }
-            });
-            this.years.sort();
-            
-            let years = [];
-            $.each(this.years, function(idx, data){
-                years.push(
-                    <option value={data}>{data}</option>
-                );
-            });
-            this.years = years;
-        } 
-        
         if (field == "year") {
+            this.manufacturers = [];
             this.models = [];
 
-            vehiclesData.results.map((data, idx) => {
-                if (event.target.value == data.Year && this.state.manufacturer == data.Make) {
-                    if (!this.models.includes( data.Model )) {
-                        return this.models.push( data.Model );
+            vehiclesData.results.map((data) => {
+                if (event.target.value == data.Year) {
+                    if (!_manufacturers.includes( data.Make )) {
+                        _manufacturers.push( data.Make );
                     }
                 }
             });
-            this.models.sort();
 
-            let models = [];
-            $.each(this.models, function(idx, data){
-                models.push(
-                    <option value={data}>{data}</option>
-                );
+            this.manufacturers = this.createOptions(_manufacturers, "manufacturer");
+            this.models = this.createOptions(_models, "model");
+        } 
+        
+        if (field == "manufacturer") {
+            this.models = [];
+
+            vehiclesData.results.map((data) => {
+                if (this.state.year == data.Year && event.target.value == data.Make) {
+                    if (!_models.includes( data.Model )) {
+                        _models.push( data.Model );
+                    }
+                }
             });
-            this.models = models;
+            this.models = this.createOptions(_models, "model");
         }
     }
 
@@ -110,16 +105,8 @@ class VehicleInfo extends Component {
                 <p id="data"></p>
                 <Form onSubmit={this.handleSubmit}>
                     <Row>
-                        <Col sm={4}>
-                            <Form.Control as="select" name="manufacturer" value={this.state.manufacturer} onChange={this.handleChange} required>
-                                <option value="">Select a Manufacturer</option>
-                                {this.manufacturers}
-                            </Form.Control>
-                        </Col>
-                    </Row><br/>
-                    <Row>
                         <Col sm={2}>
-                            <Form.Control as="select" name="year" value={this.state.year} onChange={this.handleChange} required>
+                            <Form.Control as="select" name="year" id="year" value={this.state.year} onChange={this.handleChange} required>
                                 <option value="">Select Year</option>
                                 {this.years}
                             </Form.Control>
@@ -127,7 +114,15 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <Form.Control as="select" name="model" value={this.state.model} onChange={this.handleChange} required>
+                            <Form.Control as="select" name="manufacturer" id="manufacturer" value={this.state.manufacturer} onChange={this.handleChange} required>
+                                <option value="">Select a Manufacturer</option>
+                                {this.manufacturers}
+                            </Form.Control>
+                        </Col>
+                    </Row><br/>
+                    <Row>
+                        <Col sm={4}>
+                            <Form.Control as="select" name="model" id="model" value={this.state.model} onChange={this.handleChange} required>
                                 <option value="">Select Model</option>
                                 {this.models}
                             </Form.Control>
