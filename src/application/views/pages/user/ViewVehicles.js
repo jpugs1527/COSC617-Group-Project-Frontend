@@ -25,7 +25,7 @@ class ViewVehiclePage extends Component {
         });
 
         let message = "Edit your vehicles information and availability.";
-        if (cards.length == 0) {
+        if (cards.length === 0) {
             message = "You have not added a vehicle.";
         }
         
