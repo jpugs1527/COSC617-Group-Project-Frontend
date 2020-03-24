@@ -29,7 +29,7 @@ class ViewVehiclePage extends Component {
                     <title>{vehicleName}</title>
                 </Helmet>
                 <Container><br/>
-                    <Card className="text-center">
+                    <Card>
                         <Card.Header>Featured</Card.Header>
                         <Card.Body>
                             <Card.Title>{vehicleName}</Card.Title>

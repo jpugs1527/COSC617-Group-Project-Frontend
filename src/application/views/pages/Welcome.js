@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
-import { Container, Row} from 'react-bootstrap'
+import { Container, Row } from 'react-bootstrap'
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import { WelcomeActions } from '../../actions'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 import Search from '../common/Search'
+import ModalPopup from '../common/ModalPopup'
+import policies from '../assets/json/policies'
 
 class WelcomePage extends Component {
 
@@ -13,7 +15,7 @@ class WelcomePage extends Component {
         this.props.dispatch(WelcomeActions.test({name: 'MERN.JS'}))
     }
 
-    render() { 
+    render() {
         return (
             <div>
                 <Header />
@@ -27,6 +29,9 @@ class WelcomePage extends Component {
                         </Row>
                         <Row className="justify-content-md-center min-padding">
                             <Search/>
+                        </Row>
+                        <Row className="justify-content-md-center min-padding" id="policyRow">
+                            <ModalPopup modalData={policies}/>
                         </Row>
                     </Container>
                 </div>

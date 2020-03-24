@@ -33,13 +33,13 @@ class Search extends Component {
     }
 
     formatDate(givenDate) {
-        return (givenDate.getMonth() + 1) + "/"+givenDate.getDate() + "/" + givenDate.getFullYear();
+        return (givenDate.getMonth() + 1) + "/" + givenDate.getDate() + "/" + givenDate.getFullYear();
     }
 
     hideEvent(event, picker) {
         this.setState({
-            'from' : picker.startDate.format('MM/DD/YYYY'),
-            'to' : picker.endDate.format('MM/DD/YYYY')
+            from : picker.startDate.format('MM/DD/YYYY'),
+            to : picker.endDate.format('MM/DD/YYYY')
         });
     }
 
@@ -50,7 +50,7 @@ class Search extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        window.location.replace("/search?" +$.param(this.state));
+        window.location.replace("/search?" + $.param(this.state));
     }
 
     render() { 
@@ -69,7 +69,7 @@ class Search extends Component {
                             endDate={this.state.to}
                             minDate={this.today}
                             onHide={this.hideEvent}>
-                            <Button type="button" variant="light">{this.state.from} - {this.state.to}</Button>
+                            <Button type="button" variant="light" id="searchButton">{this.state.from} - {this.state.to}</Button>
                         </DateRangePicker>
                     </div>
                     <div className="space-on-left">

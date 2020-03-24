@@ -1,5 +1,5 @@
 html, body {
-    background-color: #fff;
+    background-color: rgb(245, 245, 245) !important;
     color: #636b6f;
     font-family: 'Nunito', sans-serif;
     font-weight: 200;
@@ -89,6 +89,19 @@ html, body {
     color: #007bff;
     margin: 0px 10px;
     margin-top: 10px;
+}
+
+#searchButton {
+    border: 1px #bdbdbd solid;
+    background-color: white;
+}
+
+#modalDiv {
+    padding: 10px;
+}
+
+#modalDiv > p {
+    font-size: 10px;
 }
 
 @media only screen and (max-width: 767px) {

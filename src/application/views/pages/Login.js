@@ -3,7 +3,6 @@ import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-boots
 import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
-import { LoginActions } from '../../actions'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 
@@ -57,7 +56,7 @@ class LoginPage extends Component {
                                     </Col>
                                 </Row>
                                 <Button type="submit" variant="outline-primary">Login</Button>
-                                <a href="#" className="space-on-left">Forgot Password?</a>
+                                <a href="#test" className="space-on-left">Forgot Password?</a>
                             </Form>
                         </Card.Body>
                     </Card>

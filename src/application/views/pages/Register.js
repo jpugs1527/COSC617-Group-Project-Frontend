@@ -3,7 +3,6 @@ import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-boots
 import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
-import { RegisterActions } from '../../actions'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 

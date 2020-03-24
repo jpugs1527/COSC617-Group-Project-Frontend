@@ -8,15 +8,13 @@ function Header() {
     let doNotShow = ["/", "/search"];
 
     doNotShow.forEach(function(text){
-        if (window.location.pathname == text) {
+        if (window.location.pathname === text) {
             searchArea = "";
         }
     });
     
-
     return (
         <div>
-            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"/>
             <Navbar expand="lg" variant="dark" bg="dark">
             <Navbar.Brand href="/">JLT</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -24,12 +22,13 @@ function Header() {
                     <Nav className="mr-auto">
                     <Nav.Link href="/login">Login</Nav.Link>
                     <Nav.Link href="/register">Register</Nav.Link>
-                    <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                        <NavDropdown.Item>Action</NavDropdown.Item>
-                        <NavDropdown.Item>Another action</NavDropdown.Item>
-                        <NavDropdown.Item>Something</NavDropdown.Item>
+                    <NavDropdown title="User Stuff" id="basic-nav-dropdown">
+                        <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
+                        <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
+                        <NavDropdown.Item>View Profile</NavDropdown.Item>
+                        <NavDropdown.Item>Rental History</NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+                        <NavDropdown.Item href="#logout">Logout</NavDropdown.Item>
                     </NavDropdown>
                 </Nav>
                 {searchArea}
