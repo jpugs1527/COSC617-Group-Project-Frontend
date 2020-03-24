@@ -3,7 +3,6 @@ import { Form, FormControl, Button, Row, Col } from 'react-bootstrap'
 import $ from "jquery"
 import FileUploadInput from './FileUploadInput'
 import vehiclesData from '../assets/json/detailed_cars_list'
-import Parse from 'parse'
 
 class VehicleInfo extends Component {
 
@@ -44,9 +43,6 @@ class VehicleInfo extends Component {
     }
 
     createOptions(array, id) {
-        //remove current options
-        //$('#'+id+' option:gt(0)').remove();
-
         let retArr = [];
         $.each(array.sort(), function(idx, data){
             retArr.push(
@@ -57,40 +53,41 @@ class VehicleInfo extends Component {
         return retArr;
     }
 
+    getManufacturers(make) {
+        let _manufacturers = [];
+        vehiclesData.results.map((data) => {
+            if (make == data.Year) {
+                if (!_manufacturers.includes( data.Make )) {
+                    _manufacturers.push( data.Make );
+                }
+            }
+        });
+        return _manufacturers;
+    }
+
+    getModels(year, make) {
+        let _models = [];
+        vehiclesData.results.map((data) => {
+            if (year == data.Year && make == data.Make) {
+                if (!_models.includes( data.Model )) {
+                    _models.push( data.Model );
+                }
+            }
+        });
+        return _models;
+    }
+
     handleChange(event) {
         var field = event.target.attributes.name.nodeValue; 
         this.setState({ [field] : event.target.value });
 
-        let _models = [];
-        let _manufacturers = [];
-
         if (field == "year") {
-            this.manufacturers = [];
-            this.models = [];
-
-            vehiclesData.results.map((data) => {
-                if (event.target.value == data.Year) {
-                    if (!_manufacturers.includes( data.Make )) {
-                        _manufacturers.push( data.Make );
-                    }
-                }
-            });
-
-            this.manufacturers = this.createOptions(_manufacturers, "manufacturer");
-            this.models = this.createOptions(_models, "model");
+            this.manufacturers = this.createOptions(this.getManufacturers(event.target.value), "manufacturer");
+            this.models = this.createOptions(this.getModels(event.target.value, this.state.manufacturer), "model");
         } 
         
-        if (field == "manufacturer") {
-            this.models = [];
-
-            vehiclesData.results.map((data) => {
-                if (this.state.year == data.Year && event.target.value == data.Make) {
-                    if (!_models.includes( data.Model )) {
-                        _models.push( data.Model );
-                    }
-                }
-            });
-            this.models = this.createOptions(_models, "model");
+        if (field == "manufacturer") {            
+            this.models = this.createOptions(this.getModels(this.state.year, event.target.value), "model");
         }
     }
 
