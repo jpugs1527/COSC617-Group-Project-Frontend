@@ -35,7 +35,6 @@ class VehicleInfo extends Component {
             if (!_years.includes( data.Year)) {
                 _years.push( data.Year );
             }
-            return 0;
         });
 
         this.years = this.createOptions(_years, "year");
@@ -57,12 +56,11 @@ class VehicleInfo extends Component {
     getManufacturers(make) {
         let _manufacturers = [];
         vehiclesData.results.map((data) => {
-            if (make === data.Year) {
+            if (make == data.Year) {
                 if (!_manufacturers.includes( data.Make )) {
                     _manufacturers.push( data.Make );
                 }
             }
-            return "";
         });
         return _manufacturers;
     }
@@ -70,12 +68,11 @@ class VehicleInfo extends Component {
     getModels(year, make) {
         let _models = [];
         vehiclesData.results.map((data) => {
-            if (year === data.Year && make === data.Make) {
+            if (year == data.Year && make == data.Make) {
                 if (!_models.includes( data.Model )) {
                     _models.push( data.Model );
                 }
             }
-            return "";
         });
         return _models;
     }
@@ -84,12 +81,12 @@ class VehicleInfo extends Component {
         var field = event.target.attributes.name.nodeValue; 
         this.setState({ [field] : event.target.value });
 
-        if (field === "year") {
+        if (field == "year") {
             this.manufacturers = this.createOptions(this.getManufacturers(event.target.value), "manufacturer");
             this.models = this.createOptions(this.getModels(event.target.value, this.state.manufacturer), "model");
         } 
         
-        if (field === "manufacturer") {            
+        if (field == "manufacturer") {            
             this.models = this.createOptions(this.getModels(this.state.year, event.target.value), "model");
         }
     }
