@@ -30,7 +30,7 @@ class EditVehiclePage extends Component {
             <div>
                 <Header />
                 <Helmet>
-                    <title></title>
+                    <title>Edit Vehicle</title>
                 </Helmet>
                 <Container><br/>
                     <Card>

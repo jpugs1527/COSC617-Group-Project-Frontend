@@ -27,8 +27,8 @@
         "wiki" : "/blah"
     },{ 
         "img" : "test.jpg",
-        "manufacturer" : "Mazda",
-        "model" : "CX-5",
+        "manufacturer" : "MAZDA",
+        "model" : "CX-7",
         "price" : 80000,
         "year" : 2012,
         "quality" : [{ 
