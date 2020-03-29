@@ -37,8 +37,7 @@ class VehicleInfo extends Component {
             year : year,
             model : model,
             manufacturer : manufacturer,
-            files : [],
-            error : ''
+            files : []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -130,7 +129,7 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FileUploadInput />
+                            <FileUploadInput name="files" id="files" value={this.state.files}/>
                         </Col>
                     </Row><br/>
                     <Button type="submit" variant="outline-primary">Save</Button>
