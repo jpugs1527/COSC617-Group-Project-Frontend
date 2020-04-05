@@ -13,23 +13,6 @@ class VehicleInfo extends Component {
         let manufacturer = "";
         let model = "";
 
-        if (typeof this.props.info !== 'undefined') {
-            year = this.props.info.year;
-            manufacturer = this.props.info.manufacturer;
-            model = this.props.info.model;
-        }
-
-        this.state = {
-            year : year,
-            model : model,
-            manufacturer : manufacturer,
-            files : [],
-            error : ''
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
         let _years = [];
         vehiclesData.results.map((data) => {
             if (!_years.includes( data.Year)) {
@@ -40,9 +23,28 @@ class VehicleInfo extends Component {
         this.years = this.createOptions(_years, "year");
         this.manufacturers = [];
         this.models = [];
+
+        if (typeof this.props.info !== 'undefined') {
+            year = this.props.info.year;
+            manufacturer = this.props.info.manufacturer;
+            model = this.props.info.model;
+
+            this.manufacturers = this.createOptions(this.getManufacturers(year));
+            this.models = this.createOptions(this.getModels(year, manufacturer));
+        }
+
+        this.state = {
+            year : year,
+            model : model,
+            manufacturer : manufacturer,
+            files : []
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    createOptions(array, id) {
+    createOptions(array) {
         let retArr = [];
         $.each(array.sort(), function(idx, data){
             retArr.push(
@@ -53,10 +55,10 @@ class VehicleInfo extends Component {
         return retArr;
     }
 
-    getManufacturers(make) {
+    getManufacturers(year) {
         let _manufacturers = [];
         vehiclesData.results.map((data) => {
-            if (make == data.Year) {
+            if (year == data.Year) {
                 if (!_manufacturers.includes( data.Make )) {
                     _manufacturers.push( data.Make );
                 }
@@ -82,12 +84,12 @@ class VehicleInfo extends Component {
         this.setState({ [field] : event.target.value });
 
         if (field == "year") {
-            this.manufacturers = this.createOptions(this.getManufacturers(event.target.value), "manufacturer");
-            this.models = this.createOptions(this.getModels(event.target.value, this.state.manufacturer), "model");
+            this.manufacturers = this.createOptions(this.getManufacturers(event.target.value));
+            this.models = this.createOptions(this.getModels(event.target.value, this.state.manufacturer));
         } 
         
         if (field == "manufacturer") {            
-            this.models = this.createOptions(this.getModels(this.state.year, event.target.value), "model");
+            this.models = this.createOptions(this.getModels(this.state.year, event.target.value));
         }
     }
 
@@ -127,7 +129,7 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FileUploadInput />
+                            <FileUploadInput name="files" id="files" value={this.state.files}/>
                         </Col>
                     </Row><br/>
                     <Button type="submit" variant="outline-primary">Save</Button>

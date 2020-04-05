@@ -13,7 +13,7 @@ class AddVehiclePage extends Component {
             <div>
                 <Header />
                 <Helmet>
-                    <title></title>
+                    <title>Add a Vehicle</title>
                 </Helmet>
                 <Container><br/>
                     <Card>

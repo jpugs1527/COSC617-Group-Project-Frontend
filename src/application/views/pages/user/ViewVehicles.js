@@ -33,7 +33,7 @@ class ViewVehiclePage extends Component {
             <div>
                 <Header />
                 <Helmet>
-                    <title></title>
+                    <title>View Vehicles</title>
                 </Helmet>
                 <Container><br/>
                     <Card>
