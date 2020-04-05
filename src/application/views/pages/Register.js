@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
+import { Alert, Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
 import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
@@ -14,7 +14,8 @@ class RegisterPage extends Component {
             username : '',
             email : '',
             password : '',
-            confirm_password : ''
+            confirm_password : '',
+            isSubmitting: false
         };
     
         this.handleChange = this.handleChange.bind(this);
@@ -28,7 +29,27 @@ class RegisterPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $("#data").html(JSON.stringify(this.state));
+        this.setState({ isSubmitting: true });
+
+        fetch("http://localhost:3001/user/new", {
+            method: "POST",
+            body: JSON.stringify({
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(data => {
+            if (data.ok == false) {
+                $(".message").html("Failed to register user").show();
+            } else {
+                $(".message").html("Successfully registered user").show();
+                $("#registerForm input").val("");
+            }
+        });
     }
 
     render() { 
@@ -39,11 +60,12 @@ class RegisterPage extends Component {
                     <title>Registration</title>
                 </Helmet>
                 <Container>
-                    <p id="data"></p>
+                    <br/>
                     <Card>
                         <Card.Header>Register</Card.Header>
                         <Card.Body>
-                            <Form onSubmit={this.handleSubmit}>
+                            <Alert variant="secondary" className="message"></Alert>
+                            <Form onSubmit={this.handleSubmit} id="registerForm">
                                 <Row>
                                     <Col sm={8}>
                                         <FormControl type="text" placeholder="Username" name="username"
@@ -53,7 +75,7 @@ class RegisterPage extends Component {
                                 <Row>
                                     <Col sm={8}>
                                         <FormControl type="email" placeholder="Email" name="email"
-                                                value={this.state.email} onChange={this.handleChange} required/><br/>
+                                                value={this.state.email} onChange={this.handleChange} /><br/>
                                     </Col>
                                 </Row>
                                 <Row>
