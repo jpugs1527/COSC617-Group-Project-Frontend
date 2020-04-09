@@ -20,6 +20,7 @@
     "babel-register": "^6.26.0",
     "bootstrap": "^4.4.1",
     "bootstrap-daterangepicker": "^3.0.5",
+    "dotenv": "^8.2.0",
     "filepond": "^4.13.0",
     "filepond-plugin-image-exif-orientation": "^1.0.6",
     "filepond-plugin-image-preview": "^4.6.1",
@@ -38,6 +39,7 @@
     "react-dom": "^16.13.1",
     "react-filepond": "^7.0.1",
     "react-filestack": "^0.9.7",
+    "react-scripts": "^3.4.1",
     "serialize-javascript": "^3.0.0",
     "typescript": "^3.8.3",
     "underscore": "^1.9.2"

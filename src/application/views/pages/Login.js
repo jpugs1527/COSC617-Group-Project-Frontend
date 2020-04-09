@@ -26,7 +26,26 @@ class LoginPage extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $("#data").html(JSON.stringify(this.state));
+        $("#message").html(JSON.stringify(this.state));
+
+        fetch(process.env.REACT_APP_API_URL + "/user/login", {
+            method: "POST",
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            }),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            //if (response.token) {
+                localStorage.setItem("Turdo_Token", response.token);
+                localStorage.setItem("user_info", JSON.stringify(response.user) );
+                window.location.href = "/";
+            //}
+        });
     }
 
     render() { 
@@ -38,10 +57,10 @@ class LoginPage extends Component {
                 </Helmet>
                 <br/>
                 <Container>
-                    <p id="data"></p>
                     <Card>
                         <Card.Header>Login</Card.Header>
                         <Card.Body>
+                            <p className="message"></p>
                             <Form onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col sm={8}>

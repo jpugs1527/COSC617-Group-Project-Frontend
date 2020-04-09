@@ -7,9 +7,7 @@ import store from "./store";
 import { Helpers } from '../../application/helpers';
 import Routes from './routes';
 import '../../application/views/assets/css/App.css'
-
-console.log(process.env.REACT_APP_API_URL)
-
+require('dotenv').config();
 
 class App extends Component {
   	render() {

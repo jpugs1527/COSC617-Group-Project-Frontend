@@ -19,7 +19,7 @@ export function ajaxRequest(args = {}) {
 
 export const PrivateRoute = ({ component: Component, ...rest }) => (
     <Route {...rest} render={props => (
-        localStorage.getItem('user')
+        localStorage.getItem('Turdo_Token')
             ? <Component {...props} />
             : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
     )} />

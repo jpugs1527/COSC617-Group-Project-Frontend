@@ -34,22 +34,22 @@ export default [
     {
         path: "/vehicle",
         component: ViewVehiclePage,
-        private: false
+        private: true
     },
     {
         path: "/user/vehicle/add",
         component: UserAddVehiclePage,
-        private: false
+        private: true
     },
     {
         path: "/user/vehicle/edit",
         component: UserEditVehiclePage,
-        private: false
+        private: true
     },
     {
         path: "/user/vehicle/view",
         component: UserViewVehiclesPage,
-        private: false
+        private: true
     },
     {
         path: "*",
