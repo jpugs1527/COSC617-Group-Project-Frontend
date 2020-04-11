@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Alert, Form, Button, Row, Col } from 'react-bootstrap'
 import $ from "jquery"
-import FileUploadInput from './FileUploadInput'
+import ImageUploadInput from './ImageUploadInput'
 import vehiclesData from '../assets/json/detailed_cars_list'
 
 class VehicleInfo extends Component {
@@ -34,10 +34,12 @@ class VehicleInfo extends Component {
         }
 
         this.state = {
+            token : localStorage.getItem('Turdo_Token'),
+            userId : JSON.parse(localStorage.getItem('user_info'))._id,
             year : year,
             model : model,
             manufacturer : manufacturer,
-            files : []
+            images : []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -95,14 +97,31 @@ class VehicleInfo extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $("#data").html(JSON.stringify(this.state));
+
+        fetch(process.env.REACT_APP_API_URL + "/vehicle/add", {
+            method: "POST",
+            body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            $(".message").html(response.message).show();
+            // everything is good so clear the form
+            if (response.error == false) {
+                $("#vehicleInputForm select").val("");
+                $(".dzu-previewButton").click();
+            }
+        });
     }
 
     render() {
         return (
             <div>
-                <p id="data"></p>
-                <Form onSubmit={this.handleSubmit}>
+                <Alert variant="info" className="message"></Alert>
+                <Form onSubmit={this.handleSubmit} id="vehicleInputForm">
                     <Row>
                         <Col sm={2}>
                             <Form.Control as="select" name="year" id="year" value={this.state.year} onChange={this.handleChange} required>
@@ -129,7 +148,7 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FileUploadInput name="files" id="files" value={this.state.files}/>
+                            <ImageUploadInput name="images" id="images" value={this.state.images}/>
                         </Col>
                     </Row><br/>
                     <Button type="submit" variant="outline-primary">Save</Button>
