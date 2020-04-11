@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import $ from "jquery"
-import FileUploadInput from './FileUploadInput'
+import ImageUploadInput from './ImageUploadInput'
 import vehiclesData from '../assets/json/detailed_cars_list'
 
 class VehicleInfo extends Component {
@@ -37,7 +37,7 @@ class VehicleInfo extends Component {
             year : year,
             model : model,
             manufacturer : manufacturer,
-            files : []
+            images : []
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -129,7 +129,7 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FileUploadInput name="files" id="files" value={this.state.files}/>
+                            <ImageUploadInput name="images" id="images" value={this.state.images}/>
                         </Col>
                     </Row><br/>
                     <Button type="submit" variant="outline-primary">Save</Button>
