@@ -29,6 +29,13 @@ class Header extends Component {
                     isLoggedIn : true,
                     user_info : JSON.parse(localStorage.getItem('user_info'))
                 });
+            } else {
+                localStorage.setItem("Turdo_Token", "");
+                localStorage.setItem("user_info", "");
+                this.setState( { 
+                    isLoggedIn : false,
+                    user_info : {}
+                });
             }
         });
     }
