@@ -31,7 +31,7 @@ class RegisterPage extends Component {
         event.preventDefault();
         this.setState({ isSubmitting: true });
 
-        fetch("http://localhost:3001/user/new", {
+        fetch(process.env.REACT_APP_API_URL + "/user/new", {
             method: "POST",
             body: JSON.stringify({
                 username: this.state.username,
@@ -75,7 +75,7 @@ class RegisterPage extends Component {
                                 <Row>
                                     <Col sm={8}>
                                         <FormControl type="email" placeholder="Email" name="email"
-                                                value={this.state.email} onChange={this.handleChange} /><br/>
+                                                value={this.state.email} onChange={this.handleChange} required/><br/>
                                     </Col>
                                 </Row>
                                 <Row>
