@@ -17,7 +17,7 @@ class ViewVehiclePage extends Component {
         };
     }
     
-    componentWillMount() {
+    componentDidMount() {
         fetch(process.env.REACT_APP_API_URL + "/vehicle/view_all/" + userId, {
             method: "GET",
             headers : { 
