@@ -9,10 +9,6 @@ class VehicleInfo extends Component {
     constructor(props) {
         super(props);
 
-        let year = "";
-        let manufacturer = "";
-        let model = "";
-
         let _years = [];
         vehiclesData.results.map((data) => {
             if (!_years.includes( data.Year)) {
@@ -20,30 +16,49 @@ class VehicleInfo extends Component {
             }
         });
 
-        this.years = this.createOptions(_years, "year");
+        this.vehicleId = "";
+
+        this.action = "add";
+        this.method = "POST";
+
+        this.years = this.createOptions(_years);
         this.manufacturers = [];
         this.models = [];
-
-        if (typeof this.props.info !== 'undefined') {
-            year = this.props.info.year;
-            manufacturer = this.props.info.manufacturer;
-            model = this.props.info.model;
-
-            this.manufacturers = this.createOptions(this.getManufacturers(year));
-            this.models = this.createOptions(this.getModels(year, manufacturer));
-        }
 
         this.state = {
             token : localStorage.getItem('Turdo_Token'),
             userId : JSON.parse(localStorage.getItem('user_info'))._id,
-            year : year,
-            model : model,
-            manufacturer : manufacturer,
+            year : "",
+            model : "",
+            manufacturer : "",
             images : []
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        if ( this.props.info ) {
+            fetch(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.props.info, {
+                method: "GET",
+                headers : { 
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                this.setState({
+                    year : response[0].year,
+                    model : response[0].model,
+                    manufacturer : response[0].manufacturer,
+                    images : response[0].images
+                });
+
+                this.action = "edit/" + response[0]._id;
+                this.method = "PUT";
+            });
+        }
     }
 
     createOptions(array) {
@@ -98,8 +113,8 @@ class VehicleInfo extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        fetch(process.env.REACT_APP_API_URL + "/vehicle/add", {
-            method: "POST",
+        fetch(process.env.REACT_APP_API_URL + "/vehicle/" + this.action, {
+            method: this.method,
             body: JSON.stringify(this.state),
             headers: {
                 "Content-Type": "application/json"
@@ -110,7 +125,7 @@ class VehicleInfo extends Component {
             console.log(response)
             $(".message").html(response.message).show();
             // everything is good so clear the form
-            if (response.error == false) {
+            if (response.error == false && this.action == "add") {
                 $("#vehicleInputForm select").val("");
                 $(".dzu-previewButton").click();
             }
@@ -118,6 +133,9 @@ class VehicleInfo extends Component {
     }
 
     render() {
+        this.manufacturers = this.createOptions(this.getManufacturers(this.state.year));
+        this.models = this.createOptions(this.getModels(this.state.year, this.state.manufacturer));
+
         return (
             <div>
                 <Alert variant="info" className="message"></Alert>
@@ -151,7 +169,7 @@ class VehicleInfo extends Component {
                             <ImageUploadInput name="images" id="images" value={this.state.images}/>
                         </Col>
                     </Row><br/>
-                    <Button type="submit" variant="outline-primary">Save</Button>
+                    <Button type="submit" variant="outline-primary" id="editVehicleSave">Save</Button>
                 </Form>
             </div>
         )

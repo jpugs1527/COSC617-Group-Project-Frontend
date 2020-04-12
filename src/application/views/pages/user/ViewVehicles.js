@@ -4,19 +4,40 @@ import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
-import customData from '../../assets/json/sample-cars-user'
 import VehicleCard from '../../common/VehicleCard'
 
+const userId = JSON.parse(localStorage.getItem('user_info'))._id;
+
 class ViewVehiclePage extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            vehicleList: []
+        };
+    }
     
+    componentWillMount() {
+        fetch(process.env.REACT_APP_API_URL + "/vehicle/view_all/" + userId, {
+            method: "GET",
+            headers : { 
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({vehicleList : response});
+        });
+    }
+
     render() {
 
         let cards = [];
-        customData.data.map((data, idx) => {        
+        this.state.vehicleList.map((data, idx) => {        
             let vehicleData = {
-                url : "/user/vehicle/edit?vehicle_id=" + idx,
+                url : "/user/vehicle/edit?vehicle_id=" + data._id,
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
-                image : require('../../assets/images/car.jpg')
+                image : data.images[0]
             };
 
             return cards.push(
