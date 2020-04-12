@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
+import { Alert, Card, Container, Col, Row, Form, FormControl, Button} from 'react-bootstrap'
 import $ from "jquery"
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
@@ -40,11 +40,13 @@ class LoginPage extends Component {
         })
         .then(response => response.json())
         .then(response => {
-            //if (response.token) {
+            if (!response.error) {
                 localStorage.setItem("Turdo_Token", response.token);
                 localStorage.setItem("user_info", JSON.stringify(response.user) );
                 window.location.href = "/";
-            //}
+            } else {
+                $('.message').html(response.message).show();
+            }
         });
     }
 
@@ -60,7 +62,7 @@ class LoginPage extends Component {
                     <Card>
                         <Card.Header>Login</Card.Header>
                         <Card.Body>
-                            <p className="message"></p>
+                            <Alert variant="secondary" className="message"></Alert>
                             <Form onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col sm={8}>
