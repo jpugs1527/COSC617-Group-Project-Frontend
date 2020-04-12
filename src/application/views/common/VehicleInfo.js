@@ -123,7 +123,7 @@ class VehicleInfo extends Component {
         .then(response => response.json())
         .then(response => {
             console.log(response)
-            $(".message").html(response.message).show();
+            $(".message").html(response.message).show().delay(2000).fadeOut();
             // everything is good so clear the form
             if (response.error == false && this.action == "add") {
                 $("#vehicleInputForm select").val("");
@@ -138,7 +138,7 @@ class VehicleInfo extends Component {
 
         return (
             <div>
-                <Alert variant="info" className="message"></Alert>
+                <Alert variant="warning" className="message"></Alert>
                 <Form onSubmit={this.handleSubmit} id="vehicleInputForm">
                     <Row>
                         <Col sm={2}>

@@ -45,7 +45,7 @@ class LoginPage extends Component {
                 localStorage.setItem("user_info", JSON.stringify(response.user) );
                 window.location.href = "/";
             } else {
-                $('.message').html(response.message).show();
+                $('.message').html(response.message).show().delay(2000).fadeOut();;
             }
         });
     }
@@ -62,7 +62,7 @@ class LoginPage extends Component {
                     <Card>
                         <Card.Header>Login</Card.Header>
                         <Card.Body>
-                            <Alert variant="secondary" className="message"></Alert>
+                            <Alert variant="warning" className="message"></Alert>
                             <Form onSubmit={this.handleSubmit}>
                                 <Row>
                                     <Col sm={8}>
