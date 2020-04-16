@@ -50,7 +50,8 @@ class EditProfilePage extends Component {
                         <Col>
                             <Image 
                                 src="https://c7.uihere.com/files/136/22/549/user-profile-computer-icons-girl-customer-avatar.jpg" 
-                                thumbnail   
+                                thumbnail 
+                                
                             />
                         </Col>
                         <Col xs={8}>

@@ -48,10 +48,8 @@ class EditProfilePage extends Component {
                 <Container>
                     <Row className="profile">
                         <Col>
-                            <Image 
-                                src="https://c7.uihere.com/files/136/22/549/user-profile-computer-icons-girl-customer-avatar.jpg" 
-                                thumbnail   
-                            />
+                            <Image className="profilePic"
+                                src="https://c7.uihere.com/files/136/22/549/user-profile-computer-icons-girl-customer-avatar.jpg" thumbnail />
                         </Col>
                         <Col xs={8}>
                             <Card>
