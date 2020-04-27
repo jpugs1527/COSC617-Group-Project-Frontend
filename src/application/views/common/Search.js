@@ -6,6 +6,8 @@ import DateRangePicker from 'react-bootstrap-daterangepicker'
 import $ from "jquery"
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-daterangepicker/daterangepicker.css'
+const axios = require('axios');
+require('dotenv').config();
 
 class Search extends Component {
 
@@ -51,6 +53,13 @@ class Search extends Component {
     handleSubmit(event) {
         event.preventDefault();
         window.location.replace("/search?" + $.param(this.state));
+        axios.post("http://localhost:3000/vehicle/search", this.state)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     render() { 

@@ -11,7 +11,6 @@ import VehicleCard from '../common/VehicleCard'
 class SearchPage extends Component {
 
     render() { 
-
         let cards = [];
         customData.data.map((data, idx) => {        
             let vehicleData = {
@@ -19,7 +18,6 @@ class SearchPage extends Component {
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
                 image : require('../assets/images/car.jpg')
             };
-
             return cards.push(
                 <VehicleCard data={vehicleData} key={idx}/>
             );

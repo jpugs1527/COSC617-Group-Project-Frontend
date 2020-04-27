@@ -31,7 +31,7 @@ class RegisterPage extends Component {
         event.preventDefault();
         this.setState({ isSubmitting: true });
 
-        fetch("http://localhost:3001/user/new", {
+        fetch("http://localhost:3000/user/new", {
             method: "POST",
             body: JSON.stringify({
                 username: this.state.username,
@@ -43,7 +43,7 @@ class RegisterPage extends Component {
             }
         })
         .then(data => {
-            if (data.ok == false) {
+            if (data.ok === false) {
                 $(".message").html("Failed to register user").show();
             } else {
                 $(".message").html("Successfully registered user").show();
