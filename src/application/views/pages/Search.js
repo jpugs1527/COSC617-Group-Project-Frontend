@@ -5,18 +5,37 @@ import { connect } from 'react-redux'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
 import Search from '../common/Search'
-import customData from '../assets/json/sample-cars'
 import VehicleCard from '../common/VehicleCard'
 
 class SearchPage extends Component {
 
-    render() { 
+    constructor(props) {
+        super(props);
+        this.state = {
+            vehicleList: []
+        };
+    }
+
+    componentDidMount() {
+        fetch(process.env.REACT_APP_API_URL + "/vehicle/view_all", {
+            method: "GET",
+            headers : { 
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            this.setState({vehicleList : response});
+        });
+    }
+
+    render() {
         let cards = [];
-        customData.data.map((data, idx) => {        
+        this.state.vehicleList.map((data, idx) => {        
             let vehicleData = {
-                url : "/vehicle?vehicle_id=" + idx,
+                url : "/vehicle?vehicle_id=" + data._id,
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
-                image : require('../assets/images/car.jpg')
+                image : data.images[0]
             };
             return cards.push(
                 <VehicleCard data={vehicleData} key={idx}/>

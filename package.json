@@ -38,6 +38,7 @@
     "react-bootstrap-date-picker": "^5.1.0",
     "react-bootstrap-daterangepicker": "^4.1.0",
     "react-dom": "^16.13.1",
+    "react-dropzone-uploader": "^2.11.0",
     "react-filepond": "^7.0.1",
     "react-filestack": "^0.9.7",
     "serialize-javascript": "^3.0.0",

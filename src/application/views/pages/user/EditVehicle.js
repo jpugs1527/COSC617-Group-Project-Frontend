@@ -5,18 +5,8 @@ import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
 import VehicleInfo from '../../common/VehicleInfo'
-import customData from '../../assets/json/sample-cars-user'
 
 class EditVehiclePage extends Component {
-
-    constructor(props) {
-        super(props);
-        this.vehicleId = this.getQueryVariable("vehicle_id");
-
-        if (!customData.data[this.vehicleId]) {
-            window.location.replace('/user/vehicle/view');
-        }
-    }
 
     getQueryVariable(variable) {
         let params = (new URL(document.location)).searchParams;
@@ -24,7 +14,6 @@ class EditVehiclePage extends Component {
     }
     
     render() {
-        let vehicleInfo = customData.data[this.vehicleId];
 
         return (
             <div>
@@ -36,7 +25,7 @@ class EditVehiclePage extends Component {
                     <Card>
                         <Card.Header>Edit Vehicle</Card.Header>
                         <Card.Body>
-                            <VehicleInfo info={vehicleInfo}/>
+                            <VehicleInfo info={this.getQueryVariable("vehicle_id")}/>
                         </Card.Body>
                     </Card>
                 </Container>

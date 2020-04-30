@@ -31,7 +31,7 @@ class RegisterPage extends Component {
         event.preventDefault();
         this.setState({ isSubmitting: true });
 
-        fetch("http://localhost:3000/user/new", {
+        fetch(process.env.REACT_APP_API_URL + "/user/new", {
             method: "POST",
             body: JSON.stringify({
                 username: this.state.username,
@@ -43,10 +43,10 @@ class RegisterPage extends Component {
             }
         })
         .then(data => {
-            if (data.ok === false) {
-                $(".message").html("Failed to register user").show();
+            if (data.ok == false) {
+                $(".message").html("Failed to register user").show().delay(2000).fadeOut();;
             } else {
-                $(".message").html("Successfully registered user").show();
+                $(".message").html("Successfully registered user").show().delay(2000).fadeOut();;
                 $("#registerForm input").val("");
             }
         });
@@ -64,7 +64,7 @@ class RegisterPage extends Component {
                     <Card>
                         <Card.Header>Register</Card.Header>
                         <Card.Body>
-                            <Alert variant="secondary" className="message"></Alert>
+                            <Alert variant="warning" className="message"></Alert>
                             <Form onSubmit={this.handleSubmit} id="registerForm">
                                 <Row>
                                     <Col sm={8}>
@@ -75,7 +75,7 @@ class RegisterPage extends Component {
                                 <Row>
                                     <Col sm={8}>
                                         <FormControl type="email" placeholder="Email" name="email"
-                                                value={this.state.email} onChange={this.handleChange} /><br/>
+                                                value={this.state.email} onChange={this.handleChange} required/><br/>
                                     </Col>
                                 </Row>
                                 <Row>
