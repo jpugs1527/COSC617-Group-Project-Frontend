@@ -76,7 +76,7 @@ class ViewVehiclePage extends Component {
                                 Location: {this.state.location}
                             </Card.Text>
                             <Card.Text>
-                                Rent this car for ${this.state.cost} a day
+                                Rent this vehicle for ${this.state.cost} a day
                             </Card.Text>
                             <Button variant="primary">Rent</Button>
                         </Card.Body>

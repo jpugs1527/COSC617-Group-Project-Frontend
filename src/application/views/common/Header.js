@@ -73,7 +73,6 @@ class Header extends Component {
                                 <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
                                 <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
                                 <NavDropdown.Item href ="/user/profile">View Profile</NavDropdown.Item>
-                                <NavDropdown.Item>Rental History</NavDropdown.Item>
                             </NavDropdown>
                             ) : null}
                         </Nav>
