@@ -87,7 +87,8 @@ class VehicleInfo extends Component {
     getModels(year, make) {
         let _models = [];
         vehiclesData.results.map((data) => {
-            if (year === data.Year && make === data.Make) {
+            // ignore warning thrown by this
+            if (year == data.Year && make == data.Make) {
                 if (!_models.includes( data.Model )) {
                     _models.push( data.Model );
                 }
