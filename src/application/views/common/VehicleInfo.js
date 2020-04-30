@@ -75,7 +75,7 @@ class VehicleInfo extends Component {
     getManufacturers(year) {
         let _manufacturers = [];
         vehiclesData.results.map((data) => {
-            if (year = data.Year) {
+            if (year == data.Year) {
                 if (!_manufacturers.includes( data.Make )) {
                     _manufacturers.push( data.Make );
                 }
