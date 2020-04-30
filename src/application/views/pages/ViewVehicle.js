@@ -4,7 +4,6 @@ import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
-import customData from '../assets/json/sample-cars'
 
 class ViewVehiclePage extends Component {
 
@@ -32,7 +31,9 @@ class ViewVehiclePage extends Component {
                 year : response[0].year,
                 model : response[0].model,
                 manufacturer : response[0].manufacturer,
-                images : response[0].images
+                images : response[0].images,
+                location : response[0].location,
+                cost : response[0].cost,
             });
         });
     }
@@ -63,7 +64,7 @@ class ViewVehiclePage extends Component {
                 </Helmet>
                 <Container><br/>
                     <Card>
-                        <Card.Header>Featured</Card.Header>
+                        <Card.Header>{vehicleName}</Card.Header>
                         <Card.Body>
                             <Container>
                                 <Row>
@@ -71,13 +72,14 @@ class ViewVehiclePage extends Component {
                                 </Row>
                             </Container>
                             <br/>
-                            <Card.Title>{vehicleName}</Card.Title>
                             <Card.Text>
-                                With supporting text below as a natural lead-in to additional content.
+                                Location: {this.state.location}
+                            </Card.Text>
+                            <Card.Text>
+                                Rent this vehicle for ${this.state.cost} a day
                             </Card.Text>
                             <Button variant="primary">Rent</Button>
                         </Card.Body>
-                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
                     </Card>
                 </Container>
                 <Footer />

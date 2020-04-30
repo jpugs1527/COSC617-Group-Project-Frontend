@@ -5,20 +5,14 @@ class EditForm extends Component {
     constructor (props) {
         super(props);
         
-        //Let's get these variables from the db of the user
-        let username = "";
-        let bio = "";
-        let city = "";
-        let state = "";
-        let zip = "";
+        let user_info = JSON.parse(localStorage.getItem('user_info'));
 
         this.state = {
-            username : username,
-            bio : bio,
-            city : city,
-            state :state,
-            zip : zip
-            
+            email : user_info.email,
+            address : user_info.address,
+            city : user_info.city,
+            state : user_info.state,
+            zip : user_info.zip
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -27,53 +21,50 @@ class EditForm extends Component {
 
     handleChange (event) {
         var field = event.target.attributes.name.nodeValue;
-        //console.log(field)
         this.setState({
             [field] : event.target.value
         });
-        //this.props.functionCallFromParent(this.state.userProfile)
     }
 
     handleSubmit (event) {
         event.preventDefault();
-        //this.setState({ [field] : event.target.value });
         this.props.functionCallFromParent(this.state);
-        //alert('submitted');
     }
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                     <Form.File id="formcheck-api-regular">
                         <Form.Label> Upload a new photo </Form.Label>
                         <Form.File.Input />
                     </Form.File>
-                </div>
-                <Form.Group controlId="valdiationFormikUsername" autoComplete="off">
-                    <Form.Label> Username </Form.Label>
-                    <InputGroup>
-                        <InputGroup.Prepend>
-                            <InputGroup.Text id = "InputGroupPrepend">@</InputGroup.Text>
-                        </InputGroup.Prepend>
-                        <Form.Control 
-                        type="text" 
-                        placeholder="Username"  
-                        aria-describedby="InputGroupPrepend"
-                        name="username"
-                        value = {this.state.username}
+                </div> */}
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control 
+                        type="email" 
+                        name= "email" 
                         onChange = {this.handleChange}
+                        placeholder="johndoe@gmail.com"  
+                        aria-describedby="InputGroupPrepend"
+                        value = {this.state.email}
+                        onChange = {this.handleChange}
+                        required
                         />
-                    </InputGroup>    
                 </Form.Group>
                 <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label>Bio</Form.Label>
+                    <Form.Label>Address</Form.Label>
                     <Form.Control 
-                        as="textarea" 
-                        rows="3" 
-                        value= {this.state.bio} 
-                        name = "bio" 
-                        onChange = {this.handleChange}/>
+                        type="text" 
+                        name = "address" 
+                        onChange = {this.handleChange}
+                        placeholder="123 Main Street"  
+                        aria-describedby="InputGroupPrepend"
+                        value = {this.state.address}
+                        onChange = {this.handleChange}
+                        required
+                        />
                 </Form.Group>
                 <Form.Row>
                     <Form.Group as={Col} controlId="formGridCity">
@@ -86,7 +77,8 @@ class EditForm extends Component {
                             as="select" 
                             value= {this.state.state}
                             name = "state"
-                            onChange = {this.handleChange}>
+                            onChange = {this.handleChange}
+                            required>
                             <option>Choose...</option>
                             <option>California</option>
                             <option>Maryland</option>
@@ -99,7 +91,8 @@ class EditForm extends Component {
                         <Form.Control 
                             value = { this.state.zip } 
                             name = "zip"
-                            onChange = {this.handleChange}/>
+                            onChange = {this.handleChange}
+                            required/>
                     </Form.Group>
                 </Form.Row>
                 <Button variant="primary" type="submit" >

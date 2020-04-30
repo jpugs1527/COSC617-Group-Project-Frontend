@@ -31,7 +31,9 @@ class VehicleInfo extends Component {
             year : "",
             model : "",
             manufacturer : "",
-            images : []
+            images : [],
+            location: "",
+            cost: ""
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -52,7 +54,9 @@ class VehicleInfo extends Component {
                     year : response[0].year,
                     model : response[0].model,
                     manufacturer : response[0].manufacturer,
-                    images : response[0].images
+                    images : response[0].images,
+                    location: response[0].location,
+                    cost: response[0].cost
                 });
 
                 this.action = "edit/" + response[0]._id;
@@ -127,7 +131,7 @@ class VehicleInfo extends Component {
             $(".message").html(response.message).show().delay(2000).fadeOut();
             // everything is good so clear the form
             if (response.error == false && this.action == "add") {
-                $("#vehicleInputForm select").val("");
+                $("#vehicleInputForm select input").val("");
                 $(".dzu-previewButton").click();
             }
         });
@@ -162,6 +166,18 @@ class VehicleInfo extends Component {
                             <Form.Control as="select" name="model" id="model" value={this.state.model} onChange={this.handleChange} required>
                                 <option value="">Select Model</option>
                                 {this.models}
+                            </Form.Control>
+                        </Col>
+                    </Row><br/>
+                    <Row>
+                        <Col sm={4}>
+                            <Form.Control type="text" name="location" id="location" placeholder="Location" value={this.state.location} onChange={this.handleChange} required>
+                            </Form.Control>
+                        </Col>
+                    </Row><br/>
+                    <Row>
+                        <Col sm={4}>
+                            <Form.Control type="number" name="cost" id="cost" placeholder="Cost per day" value={this.state.cost} onChange={this.handleChange} required>
                             </Form.Control>
                         </Col>
                     </Row><br/>
