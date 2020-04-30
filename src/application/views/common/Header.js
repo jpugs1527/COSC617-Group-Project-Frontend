@@ -25,10 +25,15 @@ class Header extends Component {
         .then(response => response.json())
         .then(response => {
             if (response.isLoggedIn) {
-                this.setState( { 
-                    isLoggedIn : true,
-                    user_info : JSON.parse(localStorage.getItem('user_info'))
-                });
+                // delete token if we lose user information
+                if (localStorage.getItem('user_info') == "") {
+                    localStorage.setItem('Turdo_Token', "");
+                } else {
+                    this.setState( { 
+                        isLoggedIn : true,
+                        user_info : JSON.parse(localStorage.getItem('user_info'))
+                    });
+                }
             } else {
                 localStorage.setItem("Turdo_Token", "");
                 localStorage.setItem("user_info", "");

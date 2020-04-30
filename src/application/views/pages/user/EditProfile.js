@@ -4,38 +4,43 @@ import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
-//import customData from '../../assets/json/sample-cars-user'
-import VehicleCard from '../../common/VehicleCard'
 import EditModalPopup from '../../common/EditProfileModal'
-import EditForm from '../../common/form'
-
 
 class EditProfilePage extends Component {
     constructor() {
         super();
 
+        this.user_info = JSON.parse(localStorage.getItem('user_info'));
+
         //all these data shld come from the db
         this.state = {
-            userProfile : {
-                username: "Test 123", 
-                bio: "",
-                city: "",
-                state: "",
-                zip: ""
-            }
+            username: this.user_info.username, 
+            email: this.user_info.email,
+            address: this.user_info.address,
+            city: this.user_info.city,
+            state: this.user_info.state,
+            zip: this.user_info.zip,
+            _id: this.user_info._id 
         }
 
-        this.anotherFunction = this.anotherFunction.bind(this);
+        this.submitModal = this.submitModal.bind(this);
     }
 
-    anotherFunction(newVal) {
-        // this.setState((prevState) => {
-        //    let userProfile = Object.assign(prevState.userProfile, newVal);
-        //    console.log(newVal)
-        //    return { userProfile };
-        // });
-        this.setState({ userProfile : newVal });
-        //console.log(newVal);
+    submitModal(newVal) {
+        fetch(process.env.REACT_APP_API_URL + "/user/edit/" + this.user_info._id, {
+            method: "put",
+            body: JSON.stringify(newVal),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            let new_user_info = response.value;
+            console.log(new_user_info);
+            localStorage.setItem("user_info", JSON.stringify(new_user_info));
+            this.setState(new_user_info);
+        });
     }
 
     render () {
@@ -46,7 +51,8 @@ class EditProfilePage extends Component {
                     <title>Profile Page</title>
                 </Helmet>
                 <Container>
-                    <Row className="profile">
+                    <br/>
+                    <Row>
                         <Col>
                             <Image 
                                 src="https://c7.uihere.com/files/136/22/549/user-profile-computer-icons-girl-customer-avatar.jpg" 
@@ -55,22 +61,16 @@ class EditProfilePage extends Component {
                         </Col>
                         <Col xs={8}>
                             <Card>
-                                <Card.Header> User Profile </Card.Header>
-                                <Card.Body>
-                                    <Card.Title>Username: {this.state.userProfile.username} </Card.Title>
-                                    <Card.Text>
-                                        Bio: {this.state.userProfile.bio}
-                                    </Card.Text>
-                                </Card.Body>
+                                <Card.Header> {this.state.username} </Card.Header>
                                 <ListGroup className="list-group-flush">
-                                    <ListGroupItem>Email Address: test123@gmail.com</ListGroupItem>
-                                    <ListGroupItem>City: {this.state.userProfile.city} </ListGroupItem>
-                                    <ListGroupItem>State: {this.state.userProfile.state} </ListGroupItem>
-                                    <ListGroupItem>Zip code: {this.state.userProfile.zip} </ListGroupItem>
-                                    <ListGroupItem>Gender: Male</ListGroupItem>
+                                    <ListGroupItem>Email Address: {this.state.email}</ListGroupItem>
+                                    <ListGroupItem>Address: {this.state.address}</ListGroupItem>
+                                    <ListGroupItem>City: {this.state.city}</ListGroupItem>
+                                    <ListGroupItem>State: {this.state.state}</ListGroupItem>
+                                    <ListGroupItem>Zip: {this.state.zip}</ListGroupItem>
                                 </ListGroup>
                                 <Card.Body>
-                                    <EditModalPopup parentFunction={this.anotherFunction} />
+                                    <EditModalPopup parentFunction={this.submitModal} />
                                 </Card.Body>
                             </Card>
                         </Col>
