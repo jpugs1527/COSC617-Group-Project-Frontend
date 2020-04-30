@@ -1,17 +1,13 @@
 import React, { Component } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Alert, Form, Button, Row, Col } from 'react-bootstrap'
 import $ from "jquery"
-import FileUploadInput from './FileUploadInput'
-import vehiclesData from '../assets/json/sample-cars'
+import ImageUploadInput from './ImageUploadInput'
+import vehiclesData from '../assets/json/detailed_cars_list'
 
 class VehicleInfo extends Component {
 
     constructor(props) {
         super(props);
-
-        let year = "";
-        let manufacturer = "";
-        let model = "";
 
         let _years = [];
         vehiclesData.results.map((data) => {
@@ -20,28 +16,49 @@ class VehicleInfo extends Component {
             }
         });
 
-        this.years = this.createOptions(_years, "year");
+        this.vehicleId = "";
+
+        this.action = "add";
+        this.method = "POST";
+
+        this.years = this.createOptions(_years);
         this.manufacturers = [];
         this.models = [];
 
-        if (typeof this.props.info !== 'undefined') {
-            year = this.props.info.year;
-            manufacturer = this.props.info.manufacturer;
-            model = this.props.info.model;
-
-            this.manufacturers = this.createOptions(this.getManufacturers(year));
-            this.models = this.createOptions(this.getModels(year, manufacturer));
-        }
-
         this.state = {
-            year : year,
-            model : model,
-            manufacturer : manufacturer,
-            files : []
+            token : localStorage.getItem('Turdo_Token'),
+            userId : JSON.parse(localStorage.getItem('user_info'))._id,
+            year : "",
+            model : "",
+            manufacturer : "",
+            images : []
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        if ( this.props.info ) {
+            fetch(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.props.info, {
+                method: "GET",
+                headers : { 
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                this.setState({
+                    year : response[0].year,
+                    model : response[0].model,
+                    manufacturer : response[0].manufacturer,
+                    images : response[0].images
+                });
+
+                this.action = "edit/" + response[0]._id;
+                this.method = "PUT";
+            });
+        }
     }
 
     createOptions(array) {
@@ -95,14 +112,34 @@ class VehicleInfo extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $("#data").html(JSON.stringify(this.state));
+
+        fetch(process.env.REACT_APP_API_URL + "/vehicle/" + this.action, {
+            method: this.method,
+            body: JSON.stringify(this.state),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+        .then(response => response.json())
+        .then(response => {
+            console.log(response)
+            $(".message").html(response.message).show().delay(2000).fadeOut();
+            // everything is good so clear the form
+            if (response.error == false && this.action == "add") {
+                $("#vehicleInputForm select").val("");
+                $(".dzu-previewButton").click();
+            }
+        });
     }
 
     render() {
+        this.manufacturers = this.createOptions(this.getManufacturers(this.state.year));
+        this.models = this.createOptions(this.getModels(this.state.year, this.state.manufacturer));
+
         return (
             <div>
-                <p id="data"></p>
-                <Form onSubmit={this.handleSubmit}>
+                <Alert variant="warning" className="message"></Alert>
+                <Form onSubmit={this.handleSubmit} id="vehicleInputForm">
                     <Row>
                         <Col sm={2}>
                             <Form.Control as="select" name="year" id="year" value={this.state.year} onChange={this.handleChange} required>
@@ -129,10 +166,10 @@ class VehicleInfo extends Component {
                     </Row><br/>
                     <Row>
                         <Col sm={4}>
-                            <FileUploadInput name="files" id="files" value={this.state.files}/>
+                            <ImageUploadInput name="images" id="images" value={this.state.images}/>
                         </Col>
                     </Row><br/>
-                    <Button type="submit" variant="outline-primary">Save</Button>
+                    <Button type="submit" variant="outline-primary" id="editVehicleSave">Save</Button>
                 </Form>
             </div>
         )

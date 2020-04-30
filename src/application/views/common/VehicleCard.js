@@ -11,7 +11,7 @@ function VehicleCard(data) {
                 border="dark"
                 data-url={json.url}
                 onClick={() => window.location.replace(json.url)}>
-                <Card.Img variant="top" src={json.image}/>
+                <Card.Img variant="top" src={json.image} width="180px" height="180px" />
                 <Card.Body>
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>

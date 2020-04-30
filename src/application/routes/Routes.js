@@ -36,7 +36,7 @@ export default [
     {
         path: "/vehicle",
         component: ViewVehiclePage,
-        private: true
+        private: false
     },
     {
         path: "/user/vehicle/add",
