@@ -5,19 +5,14 @@ class EditForm extends Component {
     constructor (props) {
         super(props);
         
-        //Let's get these variables from the db of the user
-        let email = "";
-        let address = "";
-        let city = "";
-        let state = "";
-        let zip = "";
+        let user_info = JSON.parse(localStorage.getItem('user_info'));
 
         this.state = {
-            email : email,
-            address : address,
-            city : city,
-            state :state,
-            zip : zip
+            email : user_info.email,
+            address : user_info.address,
+            city : user_info.city,
+            state : user_info.state,
+            zip : user_info.zip
         }
 
         this.handleChange = this.handleChange.bind(this);

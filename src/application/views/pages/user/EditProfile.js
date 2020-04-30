@@ -37,7 +37,6 @@ class EditProfilePage extends Component {
         .then(response => response.json())
         .then(response => {
             let new_user_info = response.value;
-            console.log(new_user_info);
             localStorage.setItem("user_info", JSON.stringify(new_user_info));
             this.setState(new_user_info);
         });
