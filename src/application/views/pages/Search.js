@@ -6,6 +6,7 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import Search from '../common/Search'
 import VehicleCard from '../common/VehicleCard'
+const axios = require("axios");
 
 class SearchPage extends Component {
 
@@ -17,15 +18,26 @@ class SearchPage extends Component {
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_URL + "/vehicle/view_all", {
-            method: "GET",
-            headers : { 
-                'Content-Type': 'application/json'
-            }
+        console.log(new URLSearchParams(window.location.search).get("location"));
+        var searchParams = new URLSearchParams(window.location.search);
+        var query = {
+            location: searchParams.get("location"),
+            from: searchParams.get("from"),
+            to: searchParams.get("to")
+        }
+        axios ({
+            url: process.env.REACT_APP_API_URL + "/vehicle/search",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }, 
+            data: query
         })
-        .then(response => response.json())
-        .then(response => {
-            this.setState({vehicleList : response});
+        .then(res => {
+            this.setState({vehicleList : res.data})
+        })
+        .catch(err => {
+            console.log(err);
         });
     }
 
