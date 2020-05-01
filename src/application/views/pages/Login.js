@@ -42,7 +42,7 @@ class LoginPage extends Component {
         .then(response => {
             if (!response.error) {
                 localStorage.setItem("Turdo_Token", response.token);
-                localStorage.setItem("user_info", JSON.stringify(response.user) );
+                localStorage.setItem("user_info", JSON.stringify(response.user));
                 window.location.href = "/";
             } else {
                 $('.message').html(response.message).show().delay(2000).fadeOut();;
@@ -53,7 +53,7 @@ class LoginPage extends Component {
     render() { 
         return (
             <div>
-                <Header />
+                <Header/>
                 <Helmet>
                     <title>Login</title>
                 </Helmet>

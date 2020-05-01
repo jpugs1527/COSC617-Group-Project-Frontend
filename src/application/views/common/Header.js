@@ -15,13 +15,14 @@ class Header extends Component {
         }
         
         this.state = {
-            user_info: user_info
+            user_info: user_info,
+            isLoggedIn: false
         };
 
-        this.isLoggedIn = false;
-
         Authenticate().then((defs)=>{ 
-            this.isLoggedIn = defs.isLoggedIn;
+            this.setState({
+                isLoggedIn: defs.isLoggedIn
+            });
         });
     }
 
@@ -49,7 +50,7 @@ class Header extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">        
                         <Nav className="mr-auto">
-                            { this.isLoggedIn ? (
+                            { this.state.isLoggedIn ? (
                             <NavDropdown title={this.state.user_info.username} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
                                 <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
@@ -58,7 +59,7 @@ class Header extends Component {
                             ) : null }
                         </Nav>
                         {searchArea}
-                        { !this.isLoggedIn ? (
+                        { !this.state.isLoggedIn ? (
                             <>
                                 <Nav.Link href="/login">Login</Nav.Link>
                                 <Nav.Link href="/register">Register</Nav.Link>
