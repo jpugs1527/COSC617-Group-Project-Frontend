@@ -91,6 +91,7 @@ class VehicleInfo extends Component {
     getModels(year, make) {
         let _models = [];
         vehiclesData.results.map((data) => {
+            // ignore warning thrown by this
             if (year == data.Year && make == data.Make) {
                 if (!_models.includes( data.Model )) {
                     _models.push( data.Model );
@@ -104,12 +105,12 @@ class VehicleInfo extends Component {
         var field = event.target.attributes.name.nodeValue; 
         this.setState({ [field] : event.target.value });
 
-        if (field == "year") {
+        if (field === "year") {
             this.manufacturers = this.createOptions(this.getManufacturers(event.target.value));
             this.models = this.createOptions(this.getModels(event.target.value, this.state.manufacturer));
         } 
         
-        if (field == "manufacturer") {            
+        if (field === "manufacturer") {            
             this.models = this.createOptions(this.getModels(this.state.year, event.target.value));
         }
     }
