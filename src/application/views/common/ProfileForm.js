@@ -1,7 +1,7 @@
 import React, {Component } from 'react'
-import { Form, Button, Image, InputGroup, Col } from 'react-bootstrap'
+import { Form, Button, Col } from 'react-bootstrap'
 
-class EditForm extends Component {
+class ProfileForm extends Component {
     constructor (props) {
         super(props);
         
@@ -104,4 +104,4 @@ class EditForm extends Component {
     }
 }
 
-export default EditForm
+export default ProfileForm

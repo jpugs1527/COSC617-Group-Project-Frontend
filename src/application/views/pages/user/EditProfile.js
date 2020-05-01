@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
-import EditModalPopup from '../../common/EditProfileModal'
+import ProfileModal from '../../common/ProfileModal'
 
 class EditProfilePage extends Component {
     constructor() {
@@ -69,7 +69,7 @@ class EditProfilePage extends Component {
                                     <ListGroupItem>Zip: {this.state.zip}</ListGroupItem>
                                 </ListGroup>
                                 <Card.Body>
-                                    <EditModalPopup parentFunction={this.submitModal} />
+                                    <ProfileModal parentFunction={this.submitModal} />
                                 </Card.Body>
                             </Card>
                         </Col>

@@ -1,53 +1,34 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import Search from './Search'
+import Authenticate from '../common/Auth'
 
 class Header extends Component {
 
     constructor(props) {
         super(props);
+
+        let user_info = localStorage.getItem('user_info');
+
+        if (user_info !== "") {
+            user_info = JSON.parse(user_info)
+        }
         
         this.state = {
-            isLoggedIn : '',
-            user_info: ''
+            user_info: user_info
         };
 
-        this.handleChange = this.logout.bind(this);
-    }
+        this.isLoggedIn = false;
 
-    componentDidMount(){
-        fetch(process.env.REACT_APP_API_URL + "/user/authenticate?token=" + localStorage.getItem('Turdo_Token'), {
-            method: "GET",
-            headers : { 
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(response => {
-            if (response.isLoggedIn) {
-                // delete token if we lose user information
-                if (localStorage.getItem('user_info') == "") {
-                    localStorage.setItem('Turdo_Token', "");
-                } else {
-                    this.setState( { 
-                        isLoggedIn : true,
-                        user_info : JSON.parse(localStorage.getItem('user_info'))
-                    });
-                }
-            } else {
-                localStorage.setItem("Turdo_Token", "");
-                localStorage.setItem("user_info", "");
-                this.setState( { 
-                    isLoggedIn : false,
-                    user_info : {}
-                });
-            }
+        Authenticate().then((defs)=>{ 
+            this.isLoggedIn = defs.isLoggedIn;
         });
     }
 
     logout() {
         // remove token and refresh
         localStorage.setItem("Turdo_Token", "");
+        localStorage.setItem("user_info", "");
         window.location.reload();
     }
 
@@ -68,16 +49,16 @@ class Header extends Component {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">        
                         <Nav className="mr-auto">
-                            { this.state.isLoggedIn ? (
+                            { this.isLoggedIn ? (
                             <NavDropdown title={this.state.user_info.username} id="basic-nav-dropdown">
                                 <NavDropdown.Item href="/user/vehicle/add">Add a Vehicle</NavDropdown.Item>
                                 <NavDropdown.Item href="/user/vehicle/view">View Vehicles</NavDropdown.Item>
                                 <NavDropdown.Item href ="/user/profile">View Profile</NavDropdown.Item>
                             </NavDropdown>
-                            ) : null}
+                            ) : null }
                         </Nav>
                         {searchArea}
-                        { !this.state.isLoggedIn ? (
+                        { !this.isLoggedIn ? (
                             <>
                                 <Nav.Link href="/login">Login</Nav.Link>
                                 <Nav.Link href="/register">Register</Nav.Link>

@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Card, Button, Col, Image, Row } from 'react-bootstrap'
+import { Container, Card, Col, Image, Row } from 'react-bootstrap'
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../common/Header'
 import Footer from '../common/Footer'
+import RentModal from '../common/RentModal'
+import Authenticate from '../common/Auth'
 
 class ViewVehiclePage extends Component {
 
@@ -16,6 +18,12 @@ class ViewVehiclePage extends Component {
             model: "",
             images: []
         }
+
+        this.isLoggedIn = false;
+
+        Authenticate().then((defs)=>{ 
+            this.isLoggedIn = defs.isLoggedIn;
+        });
     }
 
     componentDidMount() {
@@ -44,14 +52,13 @@ class ViewVehiclePage extends Component {
     }
 
     render() {
-        console.log(this.state)
         let vehicleName = this.state.year + " " + this.state.manufacturer + " " + this.state.model;
 
         let cards = [];
         this.state.images.map((data, idx) => {
             return cards.push(
-                <Col xs={4} md={4}>
-                    <Image src={data} rounded width="260px" height="180px"/>
+                <Col xs={4} md={4} key={idx}>
+                    <Image src={data} rounded width="260px" height="180px" />
                 </Col>
             );
         });
@@ -78,7 +85,11 @@ class ViewVehiclePage extends Component {
                             <Card.Text>
                                 Rent this vehicle for ${this.state.cost} a day
                             </Card.Text>
-                            <Button variant="primary">Rent</Button>
+                            {this.isLoggedIn == true ? 
+                                <RentModal parentFunction={this.submitModal} />
+                            : 
+                                <strong>You must be logged in to rent this vehicle</strong>
+                            }
                         </Card.Body>
                     </Card>
                 </Container>
