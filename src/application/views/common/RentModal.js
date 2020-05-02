@@ -21,7 +21,7 @@ function RentModalPopup (props) {
                     <RentForm functionCallFromParent= {props.parentFunction} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant= "secondary" onClick={handleClose}>
+                    <Button variant= "secondary" id="rentModalClose" onClick={handleClose}>
                         Close
                     </Button>
                 </Modal.Footer>
