@@ -20,11 +20,12 @@ class RentForm extends Component {
    
         //only select one day
         this.state = {
-            fromDate: this.getClosestAvailableDate(),
-            toDate: this.getClosestAvailableDate(),
+            start: this.getClosestAvailableDate(),
+            end: this.getClosestAvailableDate(),
             cost: "",
             totalCost: "",
-            rentLength: ""
+            rentLength: "",
+            rentHistory: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -46,7 +47,8 @@ class RentForm extends Component {
         .then(response => response.json())
         .then(response => {
             this.setState({
-                cost : response[0].cost
+                cost : response[0].cost,
+                rentHistory: response[0].rentHistory
             });
         });
     }
@@ -64,8 +66,44 @@ class RentForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
 
-        if (!this.state.totalCost) {
+        if (!this.state.totalCost || !this.state.rentLength) {
             alert('There is no free lunch');
+        } else {
+            let newRent = {
+                start: this.state.start,
+                end: this.state.end,
+                costPerDay: this.state.cost,
+                totalCost: this.state.totalCost,
+                rentLength: this.state.rentLength
+            }
+
+            let rentHistory;
+
+            if (_.isArray(this.state.rentHistory)) {
+                rentHistory = this.state.rentHistory;
+                rentHistory.push(newRent);
+            } else {
+                rentHistory = [newRent];
+            }
+
+            // pull in existing rent history and add to it
+            let data = {
+                rentHistory : rentHistory,
+                token: localStorage.getItem('Turdo_Token')
+            }
+
+            fetch(process.env.REACT_APP_API_URL + "/vehicle/edit/" + this.getQueryVariable("vehicle_id"), {
+                method: 'put',
+                body: JSON.stringify(data),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.json())
+            .then(response => {
+                console.log(response);
+                //window.location.reload();
+            });
         }
     }
 
@@ -144,8 +182,8 @@ class RentForm extends Component {
             let totalCost = rentLengthInDays * this.state.cost;
     
             this.setState({
-                fromDate: startDate,
-                toDate: endDate,
+                start: startDate,
+                end: endDate,
                 totalCost: totalCost,
                 rentLength: rentLengthInDays
             });
@@ -159,13 +197,13 @@ class RentForm extends Component {
                 <div className="d-inline-flex p-2">
                     <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
                     <DateRangePicker
-                        startDate={this.state.fromDate} 
-                        endDate={this.state.toDate}
+                        startDate={this.state.start} 
+                        endDate={this.state.end}
                         minDate={moment(new Date(), this.format)}
                         isInvalidDate={this.invalidDate}
                         onApply={this.validate}
                         >
-                        <Button type="button" variant="light" id="searchButton">{this.state.fromDate} - {this.state.toDate}</Button>
+                        <Button type="button" variant="light" id="searchButton">{this.state.start} - {this.state.end}</Button>
                     </DateRangePicker>
                 </div><br/><br/>
                 <p>Total days: {this.state.rentLength}</p>
