@@ -12,11 +12,7 @@ class RentForm extends Component {
         super(props);        
         this.format = "M/D/YYYY";
 
-        this.invalidDates = [
-            { 'start': moment('5/2/2020'), 'end': moment('5/4/2020') },
-            { 'start': moment('5/15/2020'), 'end': moment('5/17/2020') },
-            { 'start': moment('5/24/2020'), 'end': moment('5/27/2020') },
-        ];
+        this.invalidDates = [];
    
         //only select one day
         this.state = {
@@ -50,6 +46,8 @@ class RentForm extends Component {
                 cost : response[0].cost,
                 rentHistory: response[0].rentHistory
             });
+
+            this.invalidDates = response[0].rentHistory
         });
     }
 
@@ -122,7 +120,7 @@ class RentForm extends Component {
 
     invalidDate(date) {
         return this.invalidDates.reduce(function(bool, range) {
-            return bool || (date >= range.start && date <= range.end);
+            return bool || (date >= moment(range.start) && date <= moment(range.end));
         }, false);
     }
 
@@ -143,9 +141,11 @@ class RentForm extends Component {
         let allInvalidDates = [];
         
         _.each(this.invalidDates, (d) => {
-            allInvalidDates.push(new Date(d.start.format(this.format)));
-            allInvalidDates.push(new Date(d.end.format(this.format)));
-            _.each(this.enumerateDaysBetweenDates(d.start, d.end), (betweenDay) => {
+            let date = moment(d);
+
+            allInvalidDates.push(new Date(date.start.format(this.format)));
+            allInvalidDates.push(new Date(date.end.format(this.format)));
+            _.each(this.enumerateDaysBetweenDates(date.start, d.end), (betweenDay) => {
                 allInvalidDates.push(new Date(moment(betweenDay).format(this.format)));
             });
         });
