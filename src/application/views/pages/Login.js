@@ -75,7 +75,7 @@ class LoginPage extends Component {
                                     </Col>
                                 </Row>
                                 <Button type="submit" variant="outline-primary">Login</Button>
-                                <a href="#test" className="space-on-left">Forgot Password?</a>
+                                <a href="PassReset" className="space-on-left">Forgot Password?</a>
                             </Form>
                         </Card.Body>
                     </Card>

@@ -8,6 +8,7 @@ const ViewVehiclePage       = React.lazy(() => import('../views/pages/ViewVehicl
 const UserAddVehiclePage    = React.lazy(() => import('../views/pages/user/AddVehicle'))
 const UserEditVehiclePage   = React.lazy(() => import('../views/pages/user/EditVehicle'))
 const UserViewVehiclesPage  = React.lazy(() => import('../views/pages/user/ViewVehicles'))
+const ForgotPage            = React.lazy(() => import('../views/pages/PassReset'))
 const Page404               = React.lazy(() => import('../views/pages/NotFound'))
 
 export default [
@@ -50,6 +51,11 @@ export default [
         path: "/user/vehicle/view",
         component: UserViewVehiclesPage,
         private: true
+    },
+    {
+        path: "/PassReset",
+        component: ForgotPage,
+        private: false
     },
     {
         path: "*",
