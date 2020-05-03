@@ -157,7 +157,7 @@ class RentForm extends Component {
             }
         } else {
             //Difference in number of days
-            let rentLengthInDays = Math.ceil(moment.duration(end.diff(start)).asDays() + 1);
+            let rentLengthInDays = Math.floor(moment.duration(end.diff(start)).asDays() + 1);
             let totalCost = rentLengthInDays * this.state.cost;
     
             this.setState({

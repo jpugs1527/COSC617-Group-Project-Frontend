@@ -131,8 +131,7 @@ class VehicleInfo extends Component {
             $(".message").html(response.message).show().delay(2000).fadeOut();
             // everything is good so clear the form
             if (response.error == false && this.action == "add") {
-                $("#vehicleInputForm select input").val("");
-                $(".dzu-previewButton").click();
+                window.location.href = "/user/vehicle/view";
             }
         });
     }

@@ -21,7 +21,7 @@ function ProfileModalPopup (props) {
                     <ProfileForm functionCallFromParent= {props.parentFunction} />
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant= "secondary" onClick={handleClose}>
+                    <Button variant= "secondary" onClick={handleClose} id="profileModalCloseButton">
                         Close
                     </Button>
                 </Modal.Footer>

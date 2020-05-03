@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import Header from '../../common/Header'
 import Footer from '../../common/Footer'
 import ProfileModal from '../../common/ProfileModal'
+import $ from 'jquery'
 
 class EditProfilePage extends Component {
     constructor() {
@@ -39,6 +40,7 @@ class EditProfilePage extends Component {
             let new_user_info = response.value;
             localStorage.setItem("user_info", JSON.stringify(new_user_info));
             this.setState(new_user_info);
+            $("#profileModalCloseButton").trigger('click');
         });
     }
 
