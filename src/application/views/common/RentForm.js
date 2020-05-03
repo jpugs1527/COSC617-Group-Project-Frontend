@@ -16,8 +16,8 @@ class RentForm extends Component {
    
         //only select one day
         this.state = {
-            start: this.getClosestAvailableDate(),
-            end: this.getClosestAvailableDate(),
+            start: "",
+            end: "",
             cost: "",
             totalCost: "",
             rentLength: "",
@@ -42,12 +42,14 @@ class RentForm extends Component {
         })
         .then(response => response.json())
         .then(response => {
+            this.invalidDates = response[0].rentHistory
+
             this.setState({
+                start: this.getClosestAvailableDate(moment()).format(this.format),
+                end: this.getClosestAvailableDate(moment()).format(this.format),
                 cost : response[0].cost,
                 rentHistory: response[0].rentHistory
             });
-
-            this.invalidDates = response[0].rentHistory
         });
     }
 
@@ -65,14 +67,15 @@ class RentForm extends Component {
         event.preventDefault();
 
         if (!this.state.totalCost || !this.state.rentLength) {
-            alert('There is no free lunch');
+            alert('Please choose a date range for the rental.');
         } else {
             let newRent = {
                 start: this.state.start,
                 end: this.state.end,
                 costPerDay: this.state.cost,
                 totalCost: this.state.totalCost,
-                rentLength: this.state.rentLength
+                rentLength: this.state.rentLength,
+                user_id: JSON.parse(localStorage.getItem('user_info'))._id
             }
 
             let rentHistory;
@@ -99,26 +102,27 @@ class RentForm extends Component {
             })
             .then(response => response.json())
             .then(response => {
-                console.log(response);
-                //window.location.reload();
+                if (!response.error) {
+                    window.location.reload();
+                }
             });
         }
     }
 
-    getClosestAvailableDate(){
-        let startDay = new Date();
-        startDay = moment(startDay);
-
-        while (this.invalidDate(startDay)) {
-            startDay.add(1, 'days');
-        }
-        startDay.add(1, 'days');
-        startDay = new Date(startDay);
-
-        return moment(startDay).format(this.format);
+    getClosestAvailableDate(date){
+        _.each(this.getAllInvalidDates(), (d) => {
+            if (date.isSame(d, 'day')){
+                date = this.getClosestAvailableDate(date.add(1, 'days'));
+            }
+        });
+        return date;
     }
 
     invalidDate(date) {
+        if (_.isEmpty(this.invalidDates)) {
+            return false;
+        }
+
         return this.invalidDates.reduce(function(bool, range) {
             return bool || (date >= moment(range.start) && date <= moment(range.end));
         }, false);
@@ -141,11 +145,9 @@ class RentForm extends Component {
         let allInvalidDates = [];
         
         _.each(this.invalidDates, (d) => {
-            let date = moment(d);
-
-            allInvalidDates.push(new Date(date.start.format(this.format)));
-            allInvalidDates.push(new Date(date.end.format(this.format)));
-            _.each(this.enumerateDaysBetweenDates(date.start, d.end), (betweenDay) => {
+            allInvalidDates.push(new Date(moment(d.start).format(this.format)));
+            allInvalidDates.push(new Date(moment(d.end).format(this.format)));
+            _.each(this.enumerateDaysBetweenDates(d.start, d.end), (betweenDay) => {
                 allInvalidDates.push(new Date(moment(betweenDay).format(this.format)));
             });
         });
