@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 function VehicleCard(data) {
     let json = data.data;
-    
+    console.log(json);
     return (
         <div>
             <Card
@@ -15,9 +15,9 @@ function VehicleCard(data) {
                 <Card.Body>
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
+                        Rent this car for only ${json.cost} per day!
                         <br/><br/>
+                        <small>Located in: {json.location}</small>
                     </Card.Text>
                 </Card.Body>
             </Card>
