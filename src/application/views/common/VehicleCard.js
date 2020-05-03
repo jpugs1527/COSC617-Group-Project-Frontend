@@ -15,8 +15,9 @@ function VehicleCard(data) {
                 <Card.Body>
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>
-                        Location:  {json.location}<br/>
-                        Cost Per Day: ${json.cost}<br/>
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                        <br/><br/>
                     </Card.Text>
                 </Card.Body>
             </Card>
