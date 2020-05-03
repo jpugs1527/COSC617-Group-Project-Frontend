@@ -49,7 +49,6 @@ class ProfileForm extends Component {
                         placeholder="johndoe@gmail.com"  
                         aria-describedby="InputGroupPrepend"
                         value = {this.state.email}
-                        onChange = {this.handleChange}
                         required
                         />
                 </Form.Group>
@@ -62,7 +61,6 @@ class ProfileForm extends Component {
                         placeholder="123 Main Street"  
                         aria-describedby="InputGroupPrepend"
                         value = {this.state.address}
-                        onChange = {this.handleChange}
                         required
                         />
                 </Form.Group>
