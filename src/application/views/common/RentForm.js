@@ -119,27 +119,28 @@ class RentForm extends Component {
         let allInvalidDates = [];
         
         _.each(this.invalidDates, (d) => {
-            allInvalidDates.push(new Date(moment(d.start).format(this.format)));
+            allInvalidDates.push(moment(d.start));
             _.each(this.enumerateDaysBetweenDates(d.start, d.end), (betweenDay) => {
-                allInvalidDates.push(new Date(moment(betweenDay).format(this.format)));
+                allInvalidDates.push(moment(betweenDay));
             });
-            allInvalidDates.push(new Date(moment(d.end).format(this.format)));
+            allInvalidDates.push(moment(d.end));
         });
 
-        return allInvalidDates.sort();
+        return allInvalidDates;
     }
 
     validate(e, picker){
         let disabledArr = this.getAllInvalidDates();
 
         // Get the selected bound dates.
-        let startDate = picker.startDate.format(this.format);
-        let endDate = picker.endDate.format(this.format);
+        let start = moment(picker.startDate);
+        let end = moment(picker.endDate);
 
         // Compare the dates again.
         var clearInput = false;
         for(let i=0;i<disabledArr.length;i++){
-            if(new Date(startDate) < disabledArr[i] && new Date(endDate) > disabledArr[i]){
+            let disabledDate = moment(disabledArr[i])
+            if(start < disabledDate && end > disabledDate){
                 clearInput = true;
             }
         }
@@ -149,17 +150,14 @@ class RentForm extends Component {
             if(!alert("Invalid selection. Please select consecutive days.")){
                 $("#rentModalClose").trigger('click');
             }
-        } else {    
-            let start = moment(startDate, this.format);
-            let end = moment(endDate, this.format);
-    
+        } else {
             //Difference in number of days
-            let rentLengthInDays = moment.duration(end.diff(start)).asDays() + 1;
+            let rentLengthInDays = Math.ceil(moment.duration(end.diff(start)).asDays() + 1);
             let totalCost = rentLengthInDays * this.state.cost;
     
             this.setState({
-                start: startDate,
-                end: endDate,
+                start: start.format(this.format),
+                end: end.format(this.format),
                 totalCost: totalCost,
                 rentLength: rentLengthInDays
             });
@@ -175,7 +173,7 @@ class RentForm extends Component {
                     <DateRangePicker
                         startDate={this.state.start} 
                         endDate={this.state.end}
-                        minDate={moment(new Date(), this.format)}
+                        minDate={moment().format(this.format)}
                         isInvalidDate={this.invalidDate}
                         onApply={this.validate}
                         >
