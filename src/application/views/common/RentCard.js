@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 
 function RentCard(data, vehicleData) {
     let json = data.data;
@@ -15,6 +15,7 @@ function RentCard(data, vehicleData) {
                         Total Cost: {json.totalCost}<br/>
                         Rent Length (Days): {json.rentLength}<br/>
                         Dates: {json.start} to {json.end}<br/>
+                        Location: {json.location}<br/>
                     </Card.Text>
                 </Card.Body>
             </Card>

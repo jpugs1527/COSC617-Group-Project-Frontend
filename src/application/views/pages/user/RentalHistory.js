@@ -46,6 +46,7 @@ class RentalHistoryPage extends Component {
                     <Card>
                         <Card.Header>Rental History</Card.Header>
                         <Card.Body>
+                            List of rental history.<br/><br/>
                             {cards}
                         </Card.Body>
                     </Card>

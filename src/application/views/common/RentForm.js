@@ -73,6 +73,7 @@ class RentForm extends Component {
                 rentLength: this.state.rentLength,
                 userId: this.userId,
                 vehicle: this.vehicle.year + " " + this.vehicle.manufacturer + " " + this.vehicle.model,
+                location: this.vehicle.location,
                 vehicleId: this.getQueryVariable("vehicle_id"),
                 token: localStorage.getItem('Turdo_Token')
             }
@@ -162,7 +163,7 @@ class RentForm extends Component {
             this.setState({
                 start: start.format(this.format),
                 end: end.format(this.format),
-                totalCost: totalCost,
+                totalCost: "$" + totalCost,
                 rentLength: rentLengthInDays
             });
         }
