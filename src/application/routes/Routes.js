@@ -8,7 +8,8 @@ const ViewVehiclePage       = React.lazy(() => import('../views/pages/ViewVehicl
 const UserAddVehiclePage    = React.lazy(() => import('../views/pages/user/AddVehicle'))
 const UserEditVehiclePage   = React.lazy(() => import('../views/pages/user/EditVehicle'))
 const UserViewVehiclesPage  = React.lazy(() => import('../views/pages/user/ViewVehicles'))
-const EditProfilePage        = React.lazy(() => import('../views/pages/user/EditProfile'))
+const EditProfilePage       = React.lazy(() => import('../views/pages/user/EditProfile'))
+const RentalHistoryPage     = React.lazy(() => import('../views/pages/user/RentalHistory'))
 const Page404               = React.lazy(() => import('../views/pages/NotFound'))
 
 
@@ -56,6 +57,11 @@ export default [
     {
         path: "/user/profile",
         component: EditProfilePage,
+        private: true
+    },
+    {
+        path: "/user/history",
+        component: RentalHistoryPage,
         private: true
     },
     {

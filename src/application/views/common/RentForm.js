@@ -22,8 +22,10 @@ class RentForm extends Component {
             end: "",
             cost: "",
             totalCost: "",
-            rentLength: "",
+            rentLength: ""
         };
+
+        this.vehicle = '';
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,6 +39,7 @@ class RentForm extends Component {
     componentDidMount(){
         axios.get(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.getQueryVariable("vehicle_id"))
         .then(res => {
+            this.vehicle = res.data[0]
             this.setState({
                 start: this.getClosestAvailableDate(moment()).format(this.format),
                 end: this.getClosestAvailableDate(moment()).format(this.format),
@@ -69,6 +72,7 @@ class RentForm extends Component {
                 totalCost: this.state.totalCost,
                 rentLength: this.state.rentLength,
                 userId: this.userId,
+                vehicle: this.vehicle.year + " " + this.vehicle.manufacturer + " " + this.vehicle.model,
                 vehicleId: this.getQueryVariable("vehicle_id"),
                 token: localStorage.getItem('Turdo_Token')
             }
@@ -77,7 +81,7 @@ class RentForm extends Component {
             .then(res => {
                 if (!res.data.error) {
                     if (!alert("You have successfully booked this vehicle for " + this.state.start + " - " + this.state.end + ".")) {
-                        window.location.href = "/";
+                        window.location.href = "/user/history";
                     }
                 } else {
                     alert("Failed to rent the vehicle");
