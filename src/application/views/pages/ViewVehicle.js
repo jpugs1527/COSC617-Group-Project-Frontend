@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Card, Col, Image, Row } from 'react-bootstrap'
+import { Container, Card, Col, Image, Row, Button } from 'react-bootstrap'
 import { Helmet } from "react-helmet"
 import { connect } from 'react-redux'
 import Header from '../common/Header'
@@ -50,6 +50,29 @@ class ViewVehiclePage extends Component {
         });
     }
 
+    rentVehicle() {
+        var searchParams = new URLSearchParams(window.location.search);
+        var vehicleID = {
+            vehicle: searchParams.get("vehicle_id")
+        }
+
+        axios ({
+            url: process.env.REACT_APP_API_URL + "/vehicle/rent",
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            }, 
+            data: vehicleID
+        })
+        .then(res => {
+            res.status(200);
+            res.redirect("/");
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
     getQueryVariable(variable) {
         let params = (new URL(document.location)).searchParams;
         return params.get(variable);
@@ -94,6 +117,11 @@ class ViewVehiclePage extends Component {
                             : 
                                 <strong>You must be logged in to rent this vehicle</strong>
                             }
+                            {/* { this.isLoggedIn == true ?
+                                <Button variant="primary" onClick={this.rentVehicle}>Rent</Button>
+                            :
+                                <p>Please log in to rent this vehicle</p>
+                            } */}
                         </Card.Body>
                     </Card>
                 </Container>
