@@ -26,6 +26,7 @@ class ViewVehiclePage extends Component {
         })
         .then(response => response.json())
         .then(response => {
+            console.log(response)
             this.setState({vehicleList : response});
         });
     }
@@ -37,7 +38,9 @@ class ViewVehiclePage extends Component {
             let vehicleData = {
                 url : "/user/vehicle/edit?vehicle_id=" + data._id,
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
-                image : data.images[0]
+                image : data.images[0],
+                location : data.location,
+                cost : data.cost 
             };
 
             return cards.push(
