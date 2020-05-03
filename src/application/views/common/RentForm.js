@@ -6,13 +6,15 @@ import DateRangePicker from 'react-bootstrap-daterangepicker'
 import moment from 'moment'
 import _ from 'underscore'
 import $ from 'jquery'
+import axios from 'axios'
 
 class RentForm extends Component {
     constructor (props) {
         super(props);        
-        this.format = "M/D/YYYY";
 
-        this.invalidDates = [];
+        this.userId = JSON.parse(localStorage.getItem('user_info'))._id
+        this.format = "M/D/YYYY";
+        this.invalidDates = JSON.parse(localStorage.getItem('current_history'))
    
         //only select one day
         this.state = {
@@ -21,7 +23,6 @@ class RentForm extends Component {
             cost: "",
             totalCost: "",
             rentLength: "",
-            rentHistory: ""
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -34,21 +35,12 @@ class RentForm extends Component {
     }
 
     componentDidMount(){
-        fetch(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.getQueryVariable("vehicle_id"), {
-            method: "GET",
-            headers : { 
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(response => {
-            this.invalidDates = response[0].rentHistory
-
+        axios.get(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.getQueryVariable("vehicle_id"))
+        .then(res => {
             this.setState({
                 start: this.getClosestAvailableDate(moment()).format(this.format),
                 end: this.getClosestAvailableDate(moment()).format(this.format),
-                cost : response[0].cost,
-                rentHistory: response[0].rentHistory
+                cost : res.data[0].cost
             });
         });
     }
@@ -69,42 +61,28 @@ class RentForm extends Component {
         if (!this.state.totalCost || !this.state.rentLength) {
             alert('Please choose a date range for the rental.');
         } else {
+            //update the vehicle rent history
             let newRent = {
                 start: this.state.start,
                 end: this.state.end,
                 costPerDay: this.state.cost,
                 totalCost: this.state.totalCost,
                 rentLength: this.state.rentLength,
-                user_id: JSON.parse(localStorage.getItem('user_info'))._id
-            }
-
-            let rentHistory;
-
-            if (_.isArray(this.state.rentHistory)) {
-                rentHistory = this.state.rentHistory;
-                rentHistory.push(newRent);
-            } else {
-                rentHistory = [newRent];
-            }
-
-            // pull in existing rent history and add to it
-            let data = {
-                rentHistory : rentHistory,
+                userId: this.userId,
+                vehicleId: this.getQueryVariable("vehicle_id"),
                 token: localStorage.getItem('Turdo_Token')
             }
 
-            fetch(process.env.REACT_APP_API_URL + "/vehicle/edit/" + this.getQueryVariable("vehicle_id"), {
-                method: 'put',
-                body: JSON.stringify(data),
-                headers: {
-                    "Content-Type": "application/json"
+            axios.post(process.env.REACT_APP_API_URL + "/rent/add", newRent)
+            .then(res => {
+                if (!res.data.error) {
+                    if (!alert("You have successfully booked this vehicle for " + this.state.start + " - " + this.state.end + ".")) {
+                        window.location.href = "/";
+                    }
+                } else {
+                    alert("Failed to rent the vehicle");
                 }
-            })
-            .then(response => response.json())
-            .then(response => {
-                if (!response.error) {
-                    window.location.reload();
-                }
+
             });
         }
     }
@@ -119,10 +97,6 @@ class RentForm extends Component {
     }
 
     invalidDate(date) {
-        if (_.isEmpty(this.invalidDates)) {
-            return false;
-        }
-
         return this.invalidDates.reduce(function(bool, range) {
             return bool || (date >= moment(range.start) && date <= moment(range.end));
         }, false);
@@ -146,10 +120,10 @@ class RentForm extends Component {
         
         _.each(this.invalidDates, (d) => {
             allInvalidDates.push(new Date(moment(d.start).format(this.format)));
-            allInvalidDates.push(new Date(moment(d.end).format(this.format)));
             _.each(this.enumerateDaysBetweenDates(d.start, d.end), (betweenDay) => {
                 allInvalidDates.push(new Date(moment(betweenDay).format(this.format)));
             });
+            allInvalidDates.push(new Date(moment(d.end).format(this.format)));
         });
 
         return allInvalidDates.sort();

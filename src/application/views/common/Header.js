@@ -21,7 +21,7 @@ class Header extends Component {
 
         Authenticate().then((defs)=>{ 
             this.setState({
-                isLoggedIn: defs.isLoggedIn
+                isLoggedIn: defs.data.isLoggedIn
             });
         });
     }
@@ -30,6 +30,7 @@ class Header extends Component {
         // remove token and refresh
         localStorage.setItem("Turdo_Token", "");
         localStorage.setItem("user_info", "");
+        localStorage.setItem("current_history", "");
         window.location.reload();
     }
 

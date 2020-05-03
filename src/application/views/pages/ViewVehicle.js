@@ -6,6 +6,7 @@ import Header from '../common/Header'
 import Footer from '../common/Footer'
 import RentModal from '../common/RentModal'
 import Authenticate from '../common/Auth'
+import axios from 'axios'
 
 class ViewVehiclePage extends Component {
 
@@ -21,28 +22,31 @@ class ViewVehiclePage extends Component {
 
         this.isLoggedIn = false;
 
-        Authenticate().then((defs)=>{ 
-            this.isLoggedIn = defs.isLoggedIn;
+        Authenticate().then((defs)=>{
+            this.isLoggedIn = defs.data.isLoggedIn;
         });
     }
 
     componentDidMount() {
-        fetch(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.getQueryVariable("vehicle_id"), {
-            method: "GET",
-            headers : { 
-                'Content-Type': 'application/json'
+        axios.get(process.env.REACT_APP_API_URL + "/rent/view_all/" + this.getQueryVariable("vehicle_id"))
+        .then(res => {
+            localStorage.setItem('current_history', JSON.stringify(res.data));
+        });
+        
+        axios.get(process.env.REACT_APP_API_URL + "/vehicle/view_one/" + this.getQueryVariable("vehicle_id"))
+        .then(res => {
+            if (res.data[0]) {
+                this.setState({
+                    year : res.data[0].year,
+                    model : res.data[0].model,
+                    manufacturer : res.data[0].manufacturer,
+                    images : res.data[0].images,
+                    location : res.data[0].location,
+                    cost : res.data[0].cost
+                });
+            } else {
+                window.location.href = "/";
             }
-        })
-        .then(response => response.json())
-        .then(response => {
-            this.setState({
-                year : response[0].year,
-                model : response[0].model,
-                manufacturer : response[0].manufacturer,
-                images : response[0].images,
-                location : response[0].location,
-                cost : response[0].cost,
-            });
         });
     }
 
