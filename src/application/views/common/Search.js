@@ -29,6 +29,26 @@ class Search extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // Code to get user location and pre populate the location search field if they allow access to location
+    // Does not work as after implementation I realized we need an API key that is not free :(
+    // componentDidMount() {
+    //     console.log("component mounted")
+    //     var currLocation;
+    //     navigator.geolocation.getCurrentPosition(function(position) {
+    //         currLocation = position;
+    //         axios.get('http://maps.googleapis.com/maps/api/geocode/json?latlng='+currLocation.coords.latitude+','+currLocation.coords.longitude+'&sensor=true')
+    //         .then(res => {
+    //             console.log(res.data);
+    //             this.setState({
+    //               location : res.data 
+    //             }) 
+    //         })
+    //         .catch(err => {
+    //             console.log(err);
+    //         })
+    //     });
+    // }
+
     getQueryVariable(variable) {
         let params = (new URL(document.location)).searchParams;
         return params.get(variable);

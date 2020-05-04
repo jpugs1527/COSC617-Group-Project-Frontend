@@ -3,7 +3,6 @@ import { Card } from 'react-bootstrap';
 
 function VehicleCard(data) {
     let json = data.data;
-    console.log(json);
     return (
         <div>
             <Card
