@@ -49,7 +49,8 @@ class SearchPage extends Component {
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
                 cost : data.cost,
                 location: data.location,
-                image : data.images[0]
+                image : data.images[0],
+                page : "searchView"
             };
             return cards.push(
                 <VehicleCard data={vehicleData} key={idx}/>

@@ -3,6 +3,22 @@ import { Card } from 'react-bootstrap';
 
 function VehicleCard(data) {
     let json = data.data;
+    
+    let text = "";
+    if (json.page == "searchView") {
+        text = <>
+            Rent this vehicle for only ${json.cost} per day!
+                <br/><br/>
+                <small>Located in: {json.location}</small>
+            </>;
+    } else if (json.page == "userVehicleView"){
+        text = <>
+            Cost Per Day: ${json.cost}
+                <br/><br/>
+                <small>Located in: {json.location}</small>
+            </>;
+    }
+    
     return (
         <div>
             <Card
@@ -14,9 +30,7 @@ function VehicleCard(data) {
                 <Card.Body>
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>
-                        Rent this car for only ${json.cost} per day!
-                        <br/><br/>
-                        <small>Located in: {json.location}</small>
+                        {text}
                     </Card.Text>
                 </Card.Body>
             </Card>
