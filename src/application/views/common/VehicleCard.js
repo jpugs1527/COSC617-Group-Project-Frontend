@@ -22,7 +22,7 @@ function VehicleCard(data) {
     let availability;
     if (json.status != "rented") {
         availability = <strong>
-            This vehicle is avialable for rental today!
+            This vehicle is available for rental today!
             </strong>
     }
     
