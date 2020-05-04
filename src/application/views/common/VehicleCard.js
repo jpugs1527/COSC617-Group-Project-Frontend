@@ -4,6 +4,21 @@ import { Card } from 'react-bootstrap';
 function VehicleCard(data) {
     let json = data.data;
     
+    let text = "";
+    if (json.page == "searchView") {
+        text = <>
+            Rent this vehicle for only ${json.cost} per day!
+                <br/><br/>
+                <small>Located in: {json.location}</small>
+            </>;
+    } else if (json.page == "userVehicleView"){
+        text = <>
+            Cost Per Day: ${json.cost}
+                <br/><br/>
+                <small>Located in: {json.location}</small>
+            </>;
+    }
+    
     return (
         <div>
             <Card
@@ -15,9 +30,7 @@ function VehicleCard(data) {
                 <Card.Body>
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                        <br/><br/>
+                        {text}
                     </Card.Text>
                 </Card.Body>
             </Card>
