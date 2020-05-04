@@ -18,6 +18,13 @@ function VehicleCard(data) {
                 <small>Located in: {json.location}</small>
             </>;
     }
+
+    let availability;
+    if (json.status != "rented") {
+        availability = <strong>
+            This vehicle is avialable for rental today!
+            </strong>
+    }
     
     return (
         <div>
@@ -31,6 +38,9 @@ function VehicleCard(data) {
                     <Card.Title>{json.vehicleName}</Card.Title>
                     <Card.Text>
                         {text}
+                        <br></br>
+                        <br></br>
+                        {availability}
                     </Card.Text>
                 </Card.Body>
             </Card>

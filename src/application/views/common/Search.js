@@ -91,16 +91,6 @@ class Search extends Component {
                         <FormControl type="text" placeholder="Location" name="location" 
                                 value={this.state.location} onChange={this.handleChange} required/>
                     </div>
-                    <div className="d-inline-flex p-2">
-                        <FontAwesomeIcon icon={faCalendarAlt} className="searchComponentIcons"/>
-                        <DateRangePicker 
-                            startDate={this.state.from} 
-                            endDate={this.state.to}
-                            minDate={this.today}
-                            onHide={this.hideEvent}>
-                            <Button type="button" variant="light" id="searchButton">{this.state.from} - {this.state.to}</Button>
-                        </DateRangePicker>
-                    </div>
                     <div className="space-on-left">
                         <Button type="submit" variant="primary" >Search</Button>
                     </div>

@@ -43,12 +43,13 @@ class SearchPage extends Component {
 
     render() {
         let cards = [];
-        this.state.vehicleList.map((data, idx) => {        
+        this.state.vehicleList.map((data, idx) => {   
             let vehicleData = {
                 url : "/vehicle?vehicle_id=" + data._id,
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
                 cost : data.cost,
                 location: data.location,
+                status: data.status,
                 image : data.images[0],
                 page : "searchView"
             };
