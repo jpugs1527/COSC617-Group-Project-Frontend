@@ -37,6 +37,8 @@ class ViewVehiclePage extends Component {
             let vehicleData = {
                 url : "/user/vehicle/edit?vehicle_id=" + data._id,
                 vehicleName : data.year + " " + data.manufacturer + " " + data.model,
+                cost: data.cost,
+                location: data.location,
                 image : data.images[0]
             };
 
