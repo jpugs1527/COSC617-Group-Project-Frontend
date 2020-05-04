@@ -18,13 +18,13 @@ class SearchPage extends Component {
     }
 
     componentDidMount() {
-        console.log(new URLSearchParams(window.location.search).get("location"));
         var searchParams = new URLSearchParams(window.location.search);
         var query = {
             location: searchParams.get("location"),
             from: searchParams.get("from"),
             to: searchParams.get("to")
         }
+        
         axios ({
             url: process.env.REACT_APP_API_URL + "/vehicle/search",
             method: "POST",
